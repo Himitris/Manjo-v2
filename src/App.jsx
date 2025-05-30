@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Home from "./components/Home";
 import ScrollToTop from "./components/ui/ScrollToTop";
-import ScrollIndicator from "./components/ui/ScrollIndicator";
 import ManjocarnSection from "./components/sections/ManjocarnSection";
 import RestaurantSection from "./components/sections/RestaurantSection";
 import CarteSection from "./components/sections/CarteSection";
@@ -49,10 +48,7 @@ function App() {
       {/* Section Instagram */}
       <InstagramSection />
 
-      {/* Indicateur de scroll moderne */}
-      <ScrollIndicator />
-
-      {/* Bouton de retour en haut (masqué car redondant avec ScrollIndicator) */}
+      {/* Bouton de retour en haut  */}
       {showScrollButton && <ScrollToTop showOnScroll={true} />}
     </div>
   );
