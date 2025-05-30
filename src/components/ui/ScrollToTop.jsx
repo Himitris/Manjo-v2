@@ -28,7 +28,14 @@ const ScrollToTop = ({ showOnScroll = false }) => {
     >
       <motion.button
         onClick={scrollToTop}
-        className="group relative outline-none focus:outline-none"
+        className="group relative outline-none focus:outline-none focus:ring-0 border-0"
+        style={{
+          outline: "none",
+          border: "none",
+          WebkitTapHighlightColor: "transparent",
+          WebkitUserSelect: "none",
+          userSelect: "none",
+        }}
         whileHover={{ scale: 1.1, y: -3 }}
         whileTap={{
           scale: 0.9,

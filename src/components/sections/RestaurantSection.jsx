@@ -113,25 +113,33 @@ const RestaurantSection = () => {
             </h3>
 
             <motion.div
-              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-h-96 overflow-y-auto p-2"
+              className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 gap-4 max-h-96 overflow-y-auto p-2"
               variants={containerVariants}
             >
               {imageNumbers.map((imageNumber) => (
                 <motion.div
                   key={imageNumber}
                   variants={photoVariants}
-                  className="relative aspect-square overflow-hidden rounded-lg shadow-md cursor-pointer group"
+                  className="relative break-inside-avoid mb-4 overflow-hidden rounded-lg shadow-md cursor-pointer group"
                   onClick={() => openFullscreen(imageNumber)}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <img
                     src={`/assets/photo/${imageNumber}.jpg`}
                     alt={`Photo de Manjocarn ${imageNumber}`}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-110 rounded-lg"
                     loading="lazy"
+                    style={{ display: "block" }}
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 rounded-lg"></div>
+
+                  {/* Effet de survol */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-2">
+                      <span className="text-white text-sm font-medium">🔍</span>
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </motion.div>

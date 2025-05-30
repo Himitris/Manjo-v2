@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
 const ScrollIndicator = () => {
   const [activeSection, setActiveSection] = useState("accueil");
   const [scrollProgress, setScrollProgress] = useState(0);
+  const observerRef = useRef(null);
 
   const sections = [
     { id: "accueil", label: "Accueil", color: "#e3cd8b" },
@@ -17,65 +18,64 @@ const ScrollIndicator = () => {
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Calcul progression scroll
-      const winScroll =
-        document.body.scrollTop || document.documentElement.scrollTop;
-      const height =
+    // Fonction pour calculer le scroll progress
+    const updateScrollProgress = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight =
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
-
-      let scrolled = 0;
-      if (height > 0) {
-        scrolled = (winScroll / height) * 100;
-      }
-
-      setScrollProgress(Math.round(Math.max(0, Math.min(100, scrolled))));
-
-      // Détection section active
-      const sectionIds = [
-        "accueil",
-        "manjocarn",
-        "restaurant",
-        "carte",
-        "payer",
-        "evenements",
-        "activites",
-        "instagram",
-      ];
-
-      let current = "accueil";
-
-      for (const sectionId of sectionIds) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          const elementTop = rect.top + window.scrollY;
-          const elementHeight = rect.height;
-          const scrollPosition = window.scrollY + window.innerHeight / 2;
-
-          if (
-            scrollPosition >= elementTop &&
-            scrollPosition < elementTop + elementHeight
-          ) {
-            current = sectionId;
-            break;
-          }
-        }
-      }
-
-      setActiveSection(current);
+      const progress =
+        docHeight > 0
+          ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100))
+          : 0;
+      setScrollProgress(Math.round(progress));
     };
 
-    // Appel initial
-    handleScroll();
+    // Intersection Observer pour les sections
+    const observerOptions = {
+      root: null,
+      rootMargin: "-50% 0px -50% 0px", // Déclenchement au centre de l'écran
+      threshold: 0,
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    observerRef.current = new IntersectionObserver(
+      observerCallback,
+      observerOptions
+    );
+
+    // Observer toutes les sections
+    sections.forEach((section) => {
+      const element = document.getElementById(section.id);
+      if (element) {
+        observerRef.current.observe(element);
+      }
+    });
 
     // Écouter le scroll
+    const handleScroll = () => {
+      updateScrollProgress();
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Nettoyage
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    // Appel initial pour définir la progression et la section active
+    updateScrollProgress();
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [sections]); // Ajout de `sections` comme dépendance
 
   const currentSection = sections.find((s) => s.id === activeSection);
 
@@ -84,7 +84,7 @@ const ScrollIndicator = () => {
       {/* Barre de progression principale */}
       <div className="relative h-2 bg-white/20 backdrop-blur-sm">
         <motion.div
-          className="absolute top-0 left-0 h-full rounded-r-full shadow-lg transition-all duration-300 ease-out"
+          className="absolute top-0 left-0 h-full rounded-r-full shadow-lg"
           style={{
             width: `${scrollProgress}%`,
             background: `linear-gradient(90deg, 
@@ -95,16 +95,18 @@ const ScrollIndicator = () => {
               #6a645a 100%
             )`,
           }}
+          transition={{ duration: 0.1 }}
         />
 
         {/* Indicateur de section active */}
         <motion.div
-          className="absolute top-0 h-full w-1 shadow-xl transition-all duration-300"
+          className="absolute top-0 h-full w-1 shadow-xl"
           style={{
             left: `${scrollProgress}%`,
             backgroundColor: currentSection?.color || "#e3cd8b",
             boxShadow: `0 0 10px ${currentSection?.color || "#e3cd8b"}`,
           }}
+          transition={{ duration: 0.1 }}
         />
       </div>
 
@@ -131,7 +133,7 @@ const ScrollIndicator = () => {
         </motion.div>
       </motion.div>
 
-      {/* Petite progression circulaire en haut à droite */}
+      {/* Progression circulaire */}
       <div className="absolute top-4 right-4">
         <div className="relative w-12 h-12">
           <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
@@ -150,8 +152,8 @@ const ScrollIndicator = () => {
               style={{
                 strokeDasharray: "100, 100",
                 strokeDashoffset: `${100 - scrollProgress}`,
-                transition: "stroke-dashoffset 0.3s ease-out",
               }}
+              transition={{ duration: 0.1 }}
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
@@ -167,7 +169,7 @@ const ScrollIndicator = () => {
         </div>
       </div>
 
-      {/* Petites feuilles décoratives qui bougent */}
+      {/* Feuilles décoratives */}
       <motion.div
         className="absolute top-6 left-1/2 transform -translate-x-1/2 text-green-300/60"
         animate={{
