@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { X } from "lucide-react";
-import ScrollToTop from "../ScrollToTop";
+import ScrollToTop from "../ui/ScrollToTop";
 
 const RestaurantSection = () => {
   const ref = useRef(null);

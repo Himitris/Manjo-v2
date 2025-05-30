@@ -1,36 +1,39 @@
 import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import {
-  Home,
-  UtensilsCrossed,
-  MenuIcon,
-  CreditCard,
-  Calendar,
-  MapPin,
-  Instagram,
-} from "lucide-react";
+import { motion } from "framer-motion";
 
 const ScrollIndicator = () => {
   const [activeSection, setActiveSection] = useState("accueil");
-  const { scrollYProgress } = useScroll();
-
-  // Transform pour l'indicateur de position
-  const indicatorY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const sections = [
-    { id: "accueil", label: "Accueil", icon: Home },
-    { id: "manjocarn", label: "Manjocarn", icon: Home },
-    { id: "restaurant", label: "Restaurant", icon: UtensilsCrossed },
-    { id: "carte", label: "La carte", icon: MenuIcon },
-    { id: "payer", label: "Réserver", icon: CreditCard },
-    { id: "evenements", label: "Événements", icon: Calendar },
-    { id: "activites", label: "Activités", icon: MapPin },
-    { id: "instagram", label: "Instagram", icon: Instagram },
+    { id: "accueil", label: "Accueil", color: "#e3cd8b" },
+    { id: "manjocarn", label: "Manjocarn", color: "#5d7052" },
+    { id: "restaurant", label: "Restaurant", color: "#c18845" },
+    { id: "carte", label: "La carte", color: "#f0be86" },
+    { id: "payer", label: "Réserver", color: "#5d7052" },
+    { id: "evenements", label: "Événements", color: "#c18845" },
+    { id: "activites", label: "Activités", color: "#f0be86" },
+    { id: "instagram", label: "Instagram", color: "#6a645a" },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = [
+      // Calcul progression scroll
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+
+      let scrolled = 0;
+      if (height > 0) {
+        scrolled = (winScroll / height) * 100;
+      }
+
+      setScrollProgress(Math.round(Math.max(0, Math.min(100, scrolled))));
+
+      // Détection section active
+      const sectionIds = [
         "accueil",
         "manjocarn",
         "restaurant",
@@ -43,14 +46,17 @@ const ScrollIndicator = () => {
 
       let current = "accueil";
 
-      for (const sectionId of sections) {
+      for (const sectionId of sectionIds) {
         const element = document.getElementById(sectionId);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // Section est considérée active si elle occupe au moins 30% de la vue
+          const elementTop = rect.top + window.scrollY;
+          const elementHeight = rect.height;
+          const scrollPosition = window.scrollY + window.innerHeight / 2;
+
           if (
-            rect.top <= window.innerHeight * 0.5 &&
-            rect.bottom >= window.innerHeight * 0.5
+            scrollPosition >= elementTop &&
+            scrollPosition < elementTop + elementHeight
           ) {
             current = sectionId;
             break;
@@ -61,107 +67,136 @@ const ScrollIndicator = () => {
       setActiveSection(current);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initial check
+    // Appel initial
+    handleScroll();
 
+    // Écouter le scroll
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Nettoyage
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
+  const currentSection = sections.find((s) => s.id === activeSection);
 
   return (
-    <div className="fixed right-4 md:right-8 top-1/2 transform -translate-y-1/2 z-40 flex flex-col items-center space-y-1">
-      {/* Barre de progression globale */}
-      <div className="relative w-1 h-32 bg-white/20 rounded-full backdrop-blur-sm mb-4">
+    <div className="fixed top-0 left-0 right-0 z-50">
+      {/* Barre de progression principale */}
+      <div className="relative h-2 bg-white/20 backdrop-blur-sm">
         <motion.div
-          className="absolute top-0 left-0 w-full bg-gradient-to-b from-pale-gold to-rusty-orange rounded-full"
+          className="absolute top-0 left-0 h-full rounded-r-full shadow-lg transition-all duration-300 ease-out"
           style={{
-            scaleY: scrollYProgress,
-            transformOrigin: "top",
+            width: `${scrollProgress}%`,
+            background: `linear-gradient(90deg, 
+              #5d7052 0%, 
+              #c18845 25%, 
+              #f0be86 50%, 
+              #e3cd8b 75%, 
+              #6a645a 100%
+            )`,
           }}
         />
 
-        {/* Indicateur de position */}
+        {/* Indicateur de section active */}
         <motion.div
-          className="absolute w-3 h-3 bg-white rounded-full border-2 border-pale-gold shadow-lg -left-1"
-          style={{ y: indicatorY }}
+          className="absolute top-0 h-full w-1 shadow-xl transition-all duration-300"
+          style={{
+            left: `${scrollProgress}%`,
+            backgroundColor: currentSection?.color || "#e3cd8b",
+            boxShadow: `0 0 10px ${currentSection?.color || "#e3cd8b"}`,
+          }}
         />
       </div>
 
-      {/* Navigation par sections */}
-      <div className="flex flex-col space-y-2">
-        {sections.map((section, index) => {
-          const IconComponent = section.icon;
-          const isActive = activeSection === section.id;
-
-          return (
-            <motion.button
-              key={section.id}
-              onClick={() => scrollToSection(section.id)}
-              className={`
-                group relative flex items-center justify-center
-                w-10 h-10 rounded-full transition-all duration-300
-                ${
-                  isActive
-                    ? "bg-pale-gold text-dark-gray shadow-lg scale-110"
-                    : "bg-white/20 text-white hover:bg-white/30 hover:scale-105"
-                }
-                backdrop-blur-sm border border-white/30
-              `}
-              whileHover={{ scale: isActive ? 1.1 : 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <IconComponent className="w-4 h-4" />
-
-              {/* Tooltip au hover */}
-              <motion.div
-                className="absolute right-12 bg-dark-gray text-pale-gold px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{
-                  textShadow: "none",
-                  backgroundColor: "var(--color-dark-gray)",
-                  color: "var(--color-pale-gold)",
-                }}
-                initial={{ x: 10 }}
-                whileHover={{ x: 0 }}
-              >
-                {section.label}
-
-                {/* Flèche du tooltip */}
-                <div className="absolute left-full top-1/2 transform -translate-y-1/2 w-0 h-0 border-l-4 border-l-dark-gray border-t-2 border-b-2 border-t-transparent border-b-transparent"></div>
-              </motion.div>
-            </motion.button>
-          );
-        })}
-      </div>
-
-      {/* Indicateur de scroll en bas */}
+      {/* Étiquette de section flottante */}
       <motion.div
-        className="mt-4 text-white/60 text-xs font-light tracking-wider"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
+        className="absolute top-4 left-4"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
       >
         <motion.div
-          className="flex flex-col items-center"
-          animate={{ y: [0, 3, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          className="bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-lg"
+          key={activeSection}
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.3 }}
         >
-          <div className="w-px h-6 bg-gradient-to-b from-white/40 to-transparent mb-1"></div>
-          <span className="transform rotate-90 origin-center text-[10px]">
-            SCROLL
+          <span
+            className="text-sm font-medium tracking-wide"
+            style={{ color: currentSection?.color || "#e3cd8b" }}
+          >
+            {currentSection?.label || "Accueil"}
           </span>
         </motion.div>
+      </motion.div>
+
+      {/* Petite progression circulaire en haut à droite */}
+      <div className="absolute top-4 right-4">
+        <div className="relative w-12 h-12">
+          <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
+            <path
+              d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
+              fill="none"
+              stroke="rgba(255,255,255,0.2)"
+              strokeWidth="2"
+            />
+            <motion.path
+              d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
+              fill="none"
+              stroke={currentSection?.color || "#e3cd8b"}
+              strokeWidth="2"
+              strokeLinecap="round"
+              style={{
+                strokeDasharray: "100, 100",
+                strokeDashoffset: `${100 - scrollProgress}`,
+                transition: "stroke-dashoffset 0.3s ease-out",
+              }}
+            />
+          </svg>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <motion.span
+              className="text-xs font-bold"
+              style={{ color: currentSection?.color || "#e3cd8b" }}
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              {scrollProgress}%
+            </motion.span>
+          </div>
+        </div>
+      </div>
+
+      {/* Petites feuilles décoratives qui bougent */}
+      <motion.div
+        className="absolute top-6 left-1/2 transform -translate-x-1/2 text-green-300/60"
+        animate={{
+          y: [0, -5, 0],
+          rotate: [0, 10, -10, 0],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        🌿
+      </motion.div>
+
+      <motion.div
+        className="absolute top-8 left-1/3 text-yellow-300/50"
+        animate={{
+          y: [0, -3, 0],
+          rotate: [0, -5, 5, 0],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          delay: 1,
+          ease: "easeInOut",
+        }}
+      >
+        🍃
       </motion.div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import ScrollToTop from "../ScrollToTop";
+import ScrollToTop from "../ui/ScrollToTop";
 
 const ManjocarnSection = () => {
   const ref = useRef(null);

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Home from "./components/Home";
-import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from "./components/ui/ScrollToTop";
 import ScrollIndicator from "./components/ui/ScrollIndicator";
 import ManjocarnSection from "./components/sections/ManjocarnSection";
 import RestaurantSection from "./components/sections/RestaurantSection";

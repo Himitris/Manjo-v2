@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Calendar, Clock } from "lucide-react";
-import ScrollToTop from "../ScrollToTop";
+import ScrollToTop from "../ui/ScrollToTop";
 
 const EvenementsSection = () => {
   const ref = useRef(null);

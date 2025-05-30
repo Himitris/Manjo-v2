@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { MapPin, Phone, Globe, ExternalLink } from "lucide-react";
-import ScrollToTop from "../ScrollToTop";
+import ScrollToTop from "../ui/ScrollToTop";
 
 const ActivitesSection = () => {
   const ref = useRef(null);

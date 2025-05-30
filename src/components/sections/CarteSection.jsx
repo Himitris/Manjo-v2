@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import ScrollToTop from "../ScrollToTop";
+import ScrollToTop from "../ui/ScrollToTop";
 
 const CarteSection = () => {
   const ref = useRef(null);
@@ -25,6 +25,19 @@ const CarteSection = () => {
       y: 0,
       transition: {
         duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.7,
         ease: "easeOut",
       },
     },
@@ -83,9 +96,9 @@ const CarteSection = () => {
       type: "Plat",
     },
     {
-      name: "Saucisse Piment",
-      price: "18",
-      description: "Saucisse porc noir au piment d'espelette",
+      name: "Magret",
+      price: "25",
+      description: "Magret de canard, servi avec des frites maison",
       type: "Plat",
     },
     {
@@ -104,12 +117,6 @@ const CarteSection = () => {
       name: "Maxi saucisse",
       price: "20",
       description: "Salade composée, frite et saucisse en grosse portion",
-      type: "Plat",
-    },
-    {
-      name: "Magret",
-      price: "25",
-      description: "Magret de canard, servi avec des frites maison",
       type: "Plat",
     },
     {
@@ -230,7 +237,7 @@ const CarteSection = () => {
             className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8"
             variants={containerVariants}
           >
-            {menuTypes.map((type) => (
+            {menuTypes.map((type, typeIndex) => (
               <motion.div
                 key={type}
                 variants={itemVariants}
@@ -247,8 +254,12 @@ const CarteSection = () => {
                   {filteredMenu(type).map((item, index) => (
                     <motion.div
                       key={`${type}-${index}`}
-                      className="border-b border-current/20 pb-3 last:border-b-0 last:pb-0 hover:bg-white/30 hover:rounded-lg hover:p-2 hover:-m-2 transition-all duration-300"
-                      whileHover={{ x: 5 }}
+                      className="border-b border-current/20 pb-3 last:border-b-0 last:pb-0 cursor-pointer"
+                      whileHover={{ 
+                        x: 8,
+                        y: -2,
+                        transition: { duration: 0.2, ease: "easeOut" }
+                      }}
                     >
                       <div className="flex justify-between items-start mb-2">
                         <h4 className="font-semibold text-dark-gray text-base md:text-lg">
