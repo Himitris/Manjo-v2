@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 :root {
-  /* Variables CSS pour notre palette manjocarn */
+  /* Variables CSS pour notre palette manjocarn enrichie */
   --manjocarn-dark-gray: #6a645a;
   --manjocarn-pale-gold: #e3cd8b;
   --manjocarn-forest-green: #5d7052;
@@ -10,12 +10,29 @@
   --manjocarn-peach: #f0be86;
   --manjocarn-background: #f8f5f0;
   
+  /* Nouveaux verts naturels */
+  --manjocarn-sage-green: #9cae85;
+  --manjocarn-moss-green: #7a8471;
+  --manjocarn-leaf-green: #8ba16f;
+  --manjocarn-pine-green: #4a5d42;
+  --manjocarn-mint-green: #b8d4a8;
+  --manjocarn-deep-forest: #3d4a36;
+  --manjocarn-light-sage: #b5c4a7;
+  
+  /* Tons terreux */
+  --manjocarn-earth-brown: #8b7355;
+  --manjocarn-bark-brown: #7d6b4f;
+  --manjocarn-sand-beige: #e8dcc0;
+  --manjocarn-clay-orange: #d49c6a;
+  --manjocarn-golden-yellow: #f2d478;
+  --manjocarn-sunset-orange: #e89c5a;
+  
   /* Typographie */
   font-family: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.6;
   font-weight: 400;
   
-  /* Couleurs de base - TOUJOURS en mode clair */
+  /* Couleurs de base */
   color: var(--manjocarn-dark-gray);
   background-color: var(--manjocarn-background);
   
@@ -36,103 +53,310 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-  background-color: var(--manjocarn-background);
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(156, 174, 133, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(240, 190, 134, 0.08) 0%, transparent 50%),
+    var(--manjocarn-background);
   color: var(--manjocarn-dark-gray);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  position: relative;
+}
+
+/* Texture subtile sur le body */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 1px 1px, rgba(106, 100, 90, 0.15) 1px, transparent 0);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.3;
 }
 
 /* === ÉLÉMENTS DE BASE === */
 h1, h2, h3, h4, h5, h6 {
   color: var(--manjocarn-dark-gray);
   font-family: 'Playfair Display', serif;
+  position: relative;
+}
+
+/* Ajout d'un effet subtil sur les titres principaux */
+h1::after, h2::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--manjocarn-forest-green), transparent);
+  opacity: 0.6;
 }
 
 a {
   color: var(--manjocarn-rusty-orange);
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 a:hover {
   color: var(--manjocarn-forest-green);
-  text-decoration: underline;
+  text-shadow: 0 1px 3px rgba(93, 112, 82, 0.3);
+}
+
+/* Lien avec effet de soulignement animé */
+a.link-animated {
+  position: relative;
+  overflow: hidden;
+}
+
+a.link-animated::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--manjocarn-sage-green), var(--manjocarn-golden-yellow));
+  transition: left 0.3s ease;
+}
+
+a.link-animated:hover::before {
+  left: 0;
+}
+
+/* === COMPOSANTS AMÉLIORÉS === */
+
+/* Cards avec plus de profondeur */
+.card-nature {
+  background: 
+    linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(245, 242, 234, 0.95));
+  border: 1px solid rgba(156, 174, 133, 0.3);
+  box-shadow: 
+    0 4px 6px -1px rgba(93, 112, 82, 0.1),
+    0 2px 4px -1px rgba(93, 112, 82, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-nature::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(156, 174, 133, 0.5), transparent);
+}
+
+.card-nature:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 10px 15px -3px rgba(93, 112, 82, 0.15),
+    0 4px 6px -2px rgba(93, 112, 82, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border-color: rgba(156, 174, 133, 0.5);
+}
+
+/* Boutons améliorés */
+.btn-nature {
+  background: linear-gradient(145deg, var(--manjocarn-sage-green), var(--manjocarn-forest-green));
+  color: var(--manjocarn-sand-beige);
+  border: 2px solid transparent;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 14px 0 rgba(93, 112, 82, 0.25);
+}
+
+.btn-nature::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-nature:hover::before {
+  left: 100%;
+}
+
+.btn-nature:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px 0 rgba(93, 112, 82, 0.35);
+  background: linear-gradient(145deg, var(--manjocarn-leaf-green), var(--manjocarn-sage-green));
+}
+
+.btn-nature:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 14px 0 rgba(93, 112, 82, 0.25);
+}
+
+/* Bouton secondaire */
+.btn-warm {
+  background: linear-gradient(145deg, var(--manjocarn-golden-yellow), var(--manjocarn-sunset-orange));
+  color: var(--manjocarn-deep-forest);
+  border: 2px solid transparent;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px 0 rgba(233, 156, 90, 0.25);
+}
+
+.btn-warm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px 0 rgba(233, 156, 90, 0.35);
+  background: linear-gradient(145deg, var(--manjocarn-sunset-orange), var(--manjocarn-clay-orange));
 }
 
 /* === SCROLLBAR PERSONNALISÉE === */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--manjocarn-background);
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--manjocarn-forest-green);
-  border-radius: 4px;
+  background: linear-gradient(180deg, var(--manjocarn-sage-green), var(--manjocarn-forest-green));
+  border-radius: 5px;
+  border: 2px solid var(--manjocarn-background);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--manjocarn-rusty-orange);
+  background: linear-gradient(180deg, var(--manjocarn-forest-green), var(--manjocarn-deep-forest));
 }
 
 /* === SÉLECTION DE TEXTE === */
 ::selection {
-  background-color: var(--manjocarn-pale-gold);
-  color: var(--manjocarn-dark-gray);
+  background: linear-gradient(90deg, var(--manjocarn-mint-green), var(--manjocarn-golden-yellow));
+  color: var(--manjocarn-deep-forest);
 }
 
 /* === FOCUS VISIBLE === */
 *:focus-visible {
-  outline: 2px solid var(--manjocarn-forest-green);
+  outline: 3px solid var(--manjocarn-sage-green);
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 6px rgba(156, 174, 133, 0.2);
 }
 
-.text-manjocarn-primary { color: var(--manjocarn-dark-gray); }
-.text-manjocarn-accent { color: var(--manjocarn-rusty-orange); }
-.text-manjocarn-secondary { color: var(--manjocarn-forest-green); }
+/* === ANIMATIONS ET EFFETS === */
 
-.bg-manjocarn-card { 
-  background-color: var(--manjocarn-cream);
-  border: 1px solid var(--manjocarn-pale-gold);
+/* Effet de brillance */
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
 }
 
-.bg-manjocarn-card:hover {
-  background-color: var(--manjocarn-light-beige);
-  border-color: var(--manjocarn-forest-green);
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
-.btn-manjocarn-primary {
-  background-color: var(--manjocarn-forest-green);
-  color: var(--manjocarn-pale-gold);
-  border: 1px solid var(--manjocarn-forest-green);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
+/* Effet de particules flottantes */
+.floating-elements {
+  position: relative;
+  overflow: hidden;
 }
 
-.btn-manjocarn-primary:hover {
-  background-color: var(--manjocarn-rusty-orange);
-  border-color: var(--manjocarn-rusty-orange);
-  transform: translateY(-2px);
+.floating-elements::before,
+.floating-elements::after {
+  content: '🍃';
+  position: absolute;
+  font-size: 1.5rem;
+  color: rgba(156, 174, 133, 0.3);
+  animation: float 8s ease-in-out infinite;
+  pointer-events: none;
 }
 
-.btn-manjocarn-secondary {
-  background-color: var(--manjocarn-cream);
-  color: var(--manjocarn-dark-gray);
-  border: 1px solid var(--manjocarn-pale-gold);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
+.floating-elements::before {
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
 }
 
-.btn-manjocarn-secondary:hover {
-  background-color: var(--manjocarn-pale-gold);
-  color: var(--manjocarn-forest-green);
-  border-color: var(--manjocarn-forest-green);
+.floating-elements::after {
+  top: 60%;
+  right: 15%;
+  animation-delay: 4s;
+}
+
+/* === UTILITIES CLASSES === */
+.text-gradient-nature {
+  background: linear-gradient(135deg, var(--manjocarn-forest-green), var(--manjocarn-sage-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-warm {
+  background: linear-gradient(135deg, var(--manjocarn-rusty-orange), var(--manjocarn-golden-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.shadow-nature-soft {
+  box-shadow: 0 2px 8px rgba(93, 112, 82, 0.1);
+}
+
+.shadow-warm-soft {
+  box-shadow: 0 2px 8px rgba(233, 156, 90, 0.1);
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+  
+  .card-nature {
+    margin: 0.5rem 0;
+  }
+  
+  .btn-nature,
+  .btn-warm {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  
+  .btn-nature,
+  .btn-warm {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.85rem;
+  }
 }

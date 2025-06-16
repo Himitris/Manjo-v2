@@ -1,77 +1,118 @@
 // src/components/sections/EventsSection.jsx
 import { motion } from "framer-motion";
-import { Calendar, Clock, Star } from "lucide-react";
+import { Calendar, Clock, MapPin } from "lucide-react";
 import Section from "../ui/Section";
 import { staggerContainer, fadeInUp } from "@/utils/animations";
 
 const EventsSection = () => {
+  // Liste simplifiée des événements
   const events = [
     {
-      date: "A venir",
-      description: "Saison 2025",
-      details: "Restez connectés pour découvrir notre programmation 2025 !",
-      icon: "🌟",
+      id: 1,
+      title: "Ouverture de Saison 2025",
+      date: "2025-04-15",
+      time: "TimeAllDay",
+      description: "Célébrons ensemble l'ouverture de notre nouvelle saison !",
+      price: "Gratuit",
     },
   ];
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("fr-FR", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+    });
+  };
+
   return (
-    <Section id="events" className="bg-white">
+    <Section
+      id="events"
+      className="bg-gradient-to-br from-manjocarn-background to-manjocarn-sand-beige/30"
+    >
       <motion.div
-        className="max-w-4xl mx-auto text-center"
+        className="max-w-6xl mx-auto"
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
       >
-        <motion.h2
-          className="font-playfair text-4xl md:text-6xl text-manjocarn-rusty-orange mb-12"
-          variants={fadeInUp}
-        >
-          <Calendar className="inline-block mr-4" />
-          Événements
-        </motion.h2>
+        {/* En-tête */}
+        <motion.div className="text-center mb-12" variants={fadeInUp}>
+          <h2 className="font-playfair text-4xl md:text-5xl text-gradient-warm mb-4">
+            Nos Événements
+          </h2>
+          <p className="text-lg text-manjocarn-dark-gray max-w-2xl mx-auto">
+            Découvrez notre programmation dans un cadre naturel exceptionnel.
+          </p>
+        </motion.div>
 
-        <motion.div className="space-y-6" variants={staggerContainer}>
-          {events.map((event, index) => (
+        {/* Liste des événements */}
+        <motion.div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={staggerContainer}
+        >
+          {events.map((event) => (
             <motion.div
-              key={index}
-              className="bg-gradient-to-r from-manjocarn-background to-manjocarn-pale-gold/20 rounded-xl p-8 shadow-lg border-l-4 border-manjocarn-rusty-orange"
+              key={event.id}
+              className="card-nature rounded-xl p-6 hover:shadow-warm transition-all duration-300"
               variants={fadeInUp}
-              whileHover={{ scale: 1.02, x: 10 }}
+              whileHover={{ y: -5 }}
             >
-              <div className="flex items-center justify-center mb-6">
-                <motion.span
-                  className="text-6xl mr-6"
-                  animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                >
-                  {event.icon}
-                </motion.span>
-                <div className="text-center">
-                  <div className="text-manjocarn-rusty-orange font-bold text-2xl mb-2">
-                    {event.date}
-                  </div>
-                  <div className="text-manjocarn-dark-gray text-xl font-semibold mb-2">
-                    {event.description}
-                  </div>
-                  <div className="text-manjocarn-dark-gray/80">
-                    {event.details}
-                  </div>
+              {/* Titre */}
+              <h3 className="font-playfair text-xl font-bold text-manjocarn-forest-green mb-3">
+                {event.title}
+              </h3>
+
+              {/* Date et heure */}
+              <div className="flex items-center text-manjocarn-sunset-orange mb-2">
+                <Calendar size={16} className="mr-2" />
+                <span className="font-medium">{formatDate(event.date)}</span>
+              </div>
+
+              <div className="flex items-center text-manjocarn-sunset-orange mb-4">
+                <Clock size={16} className="mr-2" />
+                <span>
+                  {event.time === "TimeAllDay"
+                    ? "Toute la journée"
+                    : event.time}
+                </span>
+              </div>
+
+              {/* Description */}
+              <p className="text-manjocarn-dark-gray mb-4 leading-relaxed">
+                {event.description}
+              </p>
+
+              {/* Prix et lieu */}
+              <div className="flex justify-between items-center">
+                <div className="flex items-center text-sm text-manjocarn-forest-green">
+                  <MapPin size={14} className="mr-1" />
+                  <span>Manjocarn</span>
                 </div>
+                <span className="bg-manjocarn-golden-yellow/20 text-manjocarn-sunset-orange px-3 py-1 rounded-full font-bold text-sm">
+                  {event.price}
+                </span>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
+        {/* Contact simple */}
         <motion.div
-          className="mt-12 bg-manjocarn-forest-green/10 rounded-xl p-8 border border-manjocarn-forest-green/20"
+          className="text-center mt-12 card-nature rounded-xl p-6"
           variants={fadeInUp}
         >
-          <Star className="w-8 h-8 text-manjocarn-rusty-orange mx-auto mb-4" />
-          <p className="text-manjocarn-dark-gray text-lg">
-            Suivez-nous sur nos réseaux sociaux pour être informé de nos
-            prochains événements !
+          <h3 className="font-playfair text-xl text-manjocarn-forest-green mb-3">
+            Réservations
+          </h3>
+          <p className="text-manjocarn-dark-gray mb-4">
+            Pour réserver
           </p>
+          <a href="tel:+33563682585" className="btn-warm inline-block">
+            +33 5 63 68 25 85
+          </a>
         </motion.div>
       </motion.div>
     </Section>
