@@ -10,7 +10,7 @@ const EventsSection = () => {
     {
       id: 1,
       title: "Ouverture de Saison 2025",
-      date: "2025-04-15",
+      date: "2025-05-01",
       time: "TimeAllDay",
       description: "Célébrons ensemble l'ouverture de notre nouvelle saison !",
       price: "Gratuit",

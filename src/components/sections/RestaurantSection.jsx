@@ -5,8 +5,6 @@ import {
   X,
   Camera,
   Heart,
-  Share2,
-  Download,
   ZoomIn,
   ChevronLeft,
   ChevronRight,
@@ -18,49 +16,13 @@ const RestaurantSection = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageLoaded, setImageLoaded] = useState({});
-  const [filter, setFilter] = useState("all");
 
   const photos = Array.from({ length: 14 }, (_, i) => ({
     src: `/assets/photo/${i + 1}.jpg`,
     alt: `Photo Manjocarn ${i + 1}`,
-    category:
-      i < 4 ? "exterieur" : i < 8 ? "interieur" : i < 12 ? "plats" : "ambiance",
     liked: Math.random() > 0.6,
     likes: Math.floor(Math.random() * 25) + 5,
   }));
-
-  const categories = [
-    { id: "all", label: "Tout voir", icon: "📸", count: photos.length },
-    {
-      id: "exterieur",
-      label: "Extérieur",
-      icon: "🏞️",
-      count: photos.filter((p) => p.category === "exterieur").length,
-    },
-    {
-      id: "interieur",
-      label: "Intérieur",
-      icon: "🏠",
-      count: photos.filter((p) => p.category === "interieur").length,
-    },
-    {
-      id: "plats",
-      label: "Nos plats",
-      icon: "🍽️",
-      count: photos.filter((p) => p.category === "plats").length,
-    },
-    {
-      id: "ambiance",
-      label: "Ambiance",
-      icon: "✨",
-      count: photos.filter((p) => p.category === "ambiance").length,
-    },
-  ];
-
-  const filteredPhotos =
-    filter === "all"
-      ? photos
-      : photos.filter((photo) => photo.category === filter);
 
   const handleImageLoad = (index) => {
     setImageLoaded((prev) => ({ ...prev, [index]: true }));
@@ -74,12 +36,11 @@ const RestaurantSection = () => {
   const navigateImage = (direction) => {
     const newIndex =
       direction === "next"
-        ? (currentImageIndex + 1) % filteredPhotos.length
-        : (currentImageIndex - 1 + filteredPhotos.length) %
-          filteredPhotos.length;
+        ? (currentImageIndex + 1) % photos.length
+        : (currentImageIndex - 1 + photos.length) % photos.length;
 
     setCurrentImageIndex(newIndex);
-    setSelectedImage(filteredPhotos[newIndex]);
+    setSelectedImage(photos[newIndex]);
   };
 
   const characteristics = [
@@ -249,48 +210,35 @@ const RestaurantSection = () => {
           </motion.div>
         </motion.div>
 
-        {/* Filtres de catégories */}
-        <motion.div
-          className="flex flex-wrap justify-center gap-3 md:gap-4 mb-12"
-          variants={fadeInUp}
-        >
-          {categories.map((category) => (
-            <motion.button
-              key={category.id}
-              onClick={() => setFilter(category.id)}
-              className={`flex items-center px-4 md:px-6 py-3 rounded-2xl font-medium transition-all duration-300 ${
-                filter === category.id
-                  ? "bg-gradient-to-r from-manjocarn-sage-green to-manjocarn-forest-green text-manjocarn-sand-beige shadow-nature-lg scale-105"
-                  : "card-nature text-manjocarn-dark-gray hover:shadow-nature"
-              }`}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="text-lg md:text-xl mr-2">{category.icon}</span>
-              <span className="text-sm md:text-base">{category.label}</span>
-              <span className="ml-2 text-xs bg-manjocarn-golden-yellow/30 px-2 py-1 rounded-full">
-                {category.count}
-              </span>
-            </motion.button>
-          ))}
+        {/* Titre de la galerie */}
+        <motion.div className="text-center mb-12" variants={fadeInUp}>
+          <h3 className="font-playfair text-3xl md:text-4xl text-gradient-nature mb-4">
+            Notre Galerie Photo
+          </h3>
+          <p className="text-manjocarn-dark-gray text-lg max-w-2xl mx-auto">
+            Découvrez l'atmosphère unique du Manjocarn à travers ces{" "}
+            {photos.length} photos
+          </p>
         </motion.div>
 
-        {/* Galerie photos améliorée */}
+        {/* Galerie photos complète */}
         <motion.div
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6"
           variants={staggerContainer}
-          key={filter}
         >
-          {filteredPhotos.map((photo, index) => (
+          {photos.map((photo, index) => (
             <motion.div
-              key={`${filter}-${index}`}
+              key={`photo-${index}`}
               className="aspect-square rounded-2xl overflow-hidden cursor-pointer group relative bg-manjocarn-sage-green/20"
               variants={fadeInUp}
               whileHover={{ scale: 1.05, rotate: 1 }}
               onClick={() => openModal(photo, index)}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
             >
               {/* Skeleton loading */}
-              {!imageLoaded[`${filter}-${index}`] && (
+              {!imageLoaded[index] && (
                 <div className="absolute inset-0 bg-manjocarn-sage-green/20 animate-pulse rounded-2xl flex items-center justify-center">
                   <Camera className="text-manjocarn-sage-green/50" size={32} />
                 </div>
@@ -301,7 +249,11 @@ const RestaurantSection = () => {
                 alt={photo.alt}
                 className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
                 loading="lazy"
-                onLoad={() => handleImageLoad(`${filter}-${index}`)}
+                onLoad={() => handleImageLoad(index)}
+                onError={(e) => {
+                  console.log(`Erreur de chargement pour ${photo.src}`);
+                  e.target.style.display = "none";
+                }}
               />
 
               {/* Overlay avec informations */}
@@ -319,24 +271,18 @@ const RestaurantSection = () => {
                     </div>
                     <ZoomIn size={16} />
                   </div>
-                  <div className="text-xs opacity-80">
-                    {categories.find((c) => c.id === photo.category)?.label}
-                  </div>
                 </div>
               </div>
 
-              {/* Badge catégorie mobile */}
-              <div className="absolute top-2 left-2 md:hidden">
-                <span className="text-lg">
-                  {categories.find((c) => c.id === photo.category)?.icon}
-                </span>
+              {/* Numéro de photo */}
+              <div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded-full">
+                {index + 1}
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-
-        {/* Modal image amélioré */}
+        {/* Modal image */}
         {selectedImage && (
           <motion.div
             className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
@@ -361,7 +307,7 @@ const RestaurantSection = () => {
                 />
 
                 {/* Contrôles de navigation */}
-                {filteredPhotos.length > 1 && (
+                {photos.length > 1 && (
                   <>
                     <button
                       className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300"
@@ -396,12 +342,6 @@ const RestaurantSection = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="font-semibold mb-1">{selectedImage.alt}</h3>
-                    <p className="text-sm opacity-80">
-                      {
-                        categories.find((c) => c.id === selectedImage.category)
-                          ?.label
-                      }
-                    </p>
                   </div>
                   <div className="flex items-center space-x-4">
                     <div className="flex items-center">
@@ -414,7 +354,7 @@ const RestaurantSection = () => {
                       <span>{selectedImage.likes}</span>
                     </div>
                     <span className="text-sm opacity-80">
-                      {currentImageIndex + 1} / {filteredPhotos.length}
+                      {currentImageIndex + 1} / {photos.length}
                     </span>
                   </div>
                 </div>

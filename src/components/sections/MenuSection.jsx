@@ -166,9 +166,18 @@ const MenuSection = () => {
                 onClick={() => setActiveCategory(category.id)}
                 className={`flex items-center px-4 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-semibold transition-all duration-300 text-sm md:text-base ${
                   isActive
-                    ? "bg-manjocarn-forest-green text-black shadow-nature-lg scale-105"
+                    ? "shadow-nature-lg scale-105"
                     : "bg-white text-manjocarn-dark-gray hover:bg-manjocarn-sage-green/20 border border-manjocarn-sage-green/30"
                 }`}
+                style={
+                  isActive
+                    ? {
+                        backgroundColor: "var(--manjocarn-forest-green)",
+                        color: "var(--manjocarn-sand-beige)",
+                        borderColor: "var(--manjocarn-forest-green)",
+                      }
+                    : {}
+                }
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
