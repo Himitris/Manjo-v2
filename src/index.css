@@ -173,7 +173,6 @@ a.link-animated:hover::before {
 .btn-nature {
   background: linear-gradient(145deg, var(--manjocarn-sage-green), var(--manjocarn-forest-green));
   color: var(--manjocarn-sand-beige);
-  border: 2px solid transparent;
   padding: 0.75rem 2rem;
   border-radius: 2rem;
   font-weight: 600;
@@ -358,5 +357,244 @@ a.link-animated:hover::before {
   .btn-warm {
     padding: 0.5rem 1.25rem;
     font-size: 0.85rem;
+  }
+}
+
+/* === AMÉLIORATIONS RESPONSIVE === */
+
+/* Titre principal responsive */
+.hero-title {
+  font-size: clamp(2rem, 8vw, 6rem);
+  line-height: 0.9;
+}
+
+/* Sous-titres responsifs */
+.hero-subtitle {
+  font-size: clamp(1.2rem, 4vw, 2rem);
+}
+
+.hero-description {
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+}
+
+/* Sections padding responsive */
+.section-padding {
+  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);
+}
+
+/* Cards responsive */
+.card-nature {
+  padding: clamp(1rem, 3vw, 2rem);
+  margin-bottom: clamp(0.5rem, 2vw, 1rem);
+}
+
+/* Boutons responsive */
+.btn-nature,
+.btn-warm {
+  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 4vw, 2rem);
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  border-radius: clamp(1rem, 3vw, 2rem);
+}
+
+/* Navigation responsive */
+.nav-button {
+  width: clamp(3rem, 8vw, 5rem);
+  height: clamp(3rem, 8vw, 5rem);
+}
+
+/* Grilles responsives */
+.responsive-grid {
+  display: grid;
+  gap: clamp(1rem, 3vw, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+}
+
+.responsive-grid-menu {
+  display: grid;
+  gap: clamp(1rem, 3vw, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+
+/* Texte responsive */
+.text-responsive-lg {
+  font-size: clamp(1.5rem, 5vw, 3rem);
+}
+
+.text-responsive-md {
+  font-size: clamp(1.2rem, 4vw, 2rem);
+}
+
+.text-responsive-sm {
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+}
+
+/* === BREAKPOINTS SPÉCIFIQUES === */
+
+/* Très petits écrans (< 360px) */
+@media (max-width: 359px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .card-nature {
+    padding: 0.75rem;
+  }
+  
+  .btn-nature,
+  .btn-warm {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  /* Réduire les gaps sur très petits écrans */
+  .responsive-grid,
+  .responsive-grid-menu {
+    gap: 0.75rem;
+  }
+}
+
+/* Petits écrans (360px - 640px) */
+@media (min-width: 360px) and (max-width: 640px) {
+  /* Navigation mobile améliorée */
+  .mobile-nav {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    max-width: 20rem;
+  }
+  
+  /* Cards plus compactes */
+  .card-nature {
+    padding: 1rem;
+  }
+  
+  /* Texte plus lisible */
+  body {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+}
+
+/* Tablettes (641px - 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Navigation desktop pour tablettes */
+  .desktop-nav .nav-button {
+    width: 4rem;
+    height: 4rem;
+  }
+  
+  /* Grilles optimisées pour tablettes */
+  .responsive-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  .responsive-grid-menu {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+/* Grands écrans (> 1024px) */
+@media (min-width: 1025px) {
+  /* Hero optimisé pour grands écrans */
+  .hero-title {
+    font-size: 6rem;
+  }
+  
+  /* Navigation desktop pleine */
+  .desktop-nav .nav-button {
+    width: 5rem;
+    height: 5rem;
+  }
+  
+  /* Grilles pour grands écrans */
+  .responsive-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .responsive-grid-menu {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+/* === AMÉLIORATION DES INTERACTIONS TOUCH === */
+@media (hover: none) and (pointer: coarse) {
+  /* Boutons plus grands pour le touch */
+  .btn-nature,
+  .btn-warm,
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Pas d'effets hover sur touch */
+  .card-nature:hover {
+    transform: none;
+  }
+  
+  /* Navigation mobile optimisée */
+  .mobile-nav button {
+    min-height: 60px;
+    min-width: 60px;
+  }
+}
+
+/* === ACCESSIBILITÉ === */
+@media (prefers-reduced-motion: reduce) {
+  /* Réduire les animations pour ceux qui le préfèrent */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* === ORIENTATION === */
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Hero plus compact en paysage sur mobile */
+  .hero-section {
+    padding: 1rem;
+  }
+  
+  .hero-title {
+    font-size: clamp(2rem, 6vh, 3rem);
+  }
+  
+  .mobile-nav {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .mobile-nav button {
+    min-height: 50px;
+    min-width: 50px;
+  }
+}
+
+/* === PRINT === */
+@media print {
+  /* Styles pour l'impression */
+  .hero-section,
+  .floating-elements,
+  button,
+  .modal {
+    display: none !important;
+  }
+  
+  .card-nature {
+    break-inside: avoid;
+    border: 1px solid #000;
+    margin-bottom: 1rem;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+    color: #000;
+    background: #fff;
   }
 }

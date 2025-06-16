@@ -1,6 +1,6 @@
 // src/components/sections/HeroSection.jsx
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react"; // Ajout de useEffect dans l'import
+import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 
 const navigationButtons = [
@@ -50,7 +50,6 @@ const navigationButtons = [
 
 const HeroSection = () => {
   const [hoveredButton, setHoveredButton] = useState(null);
-  // Correction pour éviter les erreurs SSR
   const [isMobile, setIsMobile] = useState(false);
 
   const scrollToSection = (sectionId) => {
@@ -60,11 +59,8 @@ const HeroSection = () => {
     });
   };
 
-  // Correction : useEffect au lieu de React.useEffect
   useEffect(() => {
-    // Vérifier que window existe
     if (typeof window !== "undefined") {
-      // Initialiser isMobile
       setIsMobile(window.innerWidth < 768);
 
       const handleResize = () => {
@@ -77,81 +73,82 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative h-screen overflow-hidden bg-gradient-to-br from-manjocarn-sage-green via-manjocarn-forest-green to-manjocarn-deep-forest">
-      {/* Texture de fond naturelle */}
-      <div className="absolute inset-0 bg-texture-paper opacity-30"></div>
+    <section className="relative h-screen overflow-hidden bg-manjocarn-background">
+      {/* Fond dégradé naturel simplifié */}
+      <div className="absolute inset-0 bg-gradient-to-br from-manjocarn-sage-green/20 via-manjocarn-mint-green/10 to-manjocarn-forest-green/20"></div>
 
-      {/* Overlay pour adoucir */}
-      <div className="absolute inset-0 bg-black/20"></div>
+      {/* Texture subtile */}
+      <div className="absolute inset-0 opacity-30">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: `radial-gradient(circle at 25% 25%, rgba(156, 174, 133, 0.1) 0%, transparent 50%),
+                             radial-gradient(circle at 75% 75%, rgba(93, 112, 82, 0.1) 0%, transparent 50%)`,
+            backgroundSize: "400px 400px",
+          }}
+        ></div>
+      </div>
 
-      {/* Motifs décoratifs naturels améliorés */}
-      <div className="absolute inset-0 opacity-20">
-        {/* Feuilles flottantes */}
+      {/* Éléments décoratifs naturels simples */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
         <motion.div
-          className="absolute top-20 left-20 w-8 h-8 text-manjocarn-mint-green text-4xl"
+          className="absolute top-20 left-20 text-manjocarn-mint-green text-4xl"
           animate={{
             y: [0, -20, 0],
-            x: [0, 10, 0],
-            rotate: [0, 15, 0],
+            rotate: [0, 10, 0],
           }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         >
           🍃
         </motion.div>
 
         <motion.div
-          className="absolute top-32 right-16 w-6 h-6 text-manjocarn-leaf-green text-3xl"
+          className="absolute top-32 right-16 text-manjocarn-sage-green text-3xl"
           animate={{
             y: [0, -15, 0],
-            x: [0, -8, 0],
-            rotate: [0, -10, 0],
+            x: [0, 10, 0],
           }}
           transition={{
-            duration: 3.5,
+            duration: 8,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 1,
+            delay: 2,
           }}
         >
           🌿
         </motion.div>
 
         <motion.div
-          className="absolute bottom-40 left-32 w-10 h-10 text-manjocarn-sage-green text-5xl"
+          className="absolute bottom-40 left-32 text-manjocarn-forest-green text-5xl"
           animate={{
             y: [0, -25, 0],
-            rotate: [0, 20, 0],
+            rotate: [0, 15, 0],
           }}
           transition={{
-            duration: 5,
+            duration: 10,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 2,
+            delay: 4,
           }}
         >
           🌱
         </motion.div>
-
-        {/* Bulles de lumière */}
-        <div className="absolute top-20 left-20 w-32 h-32 bg-manjocarn-golden-yellow rounded-full blur-3xl animate-pulse-soft"></div>
-        <div className="absolute bottom-32 right-20 w-40 h-40 bg-manjocarn-sunset-orange rounded-full blur-3xl animate-float"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-manjocarn-mint-green rounded-full blur-3xl animate-float-delayed"></div>
       </div>
 
       {/* Contenu principal */}
-      <div className="relative z-10 h-full flex flex-col justify-center items-center text-white px-4">
-        {/* Titre principal animé */}
+      <div className="relative z-10 h-full flex flex-col justify-center items-center text-manjocarn-forest-green px-4">
+        {/* Titre principal */}
         <motion.div
           className="text-center mb-8 md:mb-16"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
-          <h1 className="font-cabin-sketch text-4xl sm:text-6xl md:text-8xl lg:text-9xl text-manjocarn-golden-yellow mb-4 drop-shadow-2xl leading-none">
+          <h1 className="font-cabin-sketch text-4xl sm:text-6xl md:text-8xl lg:text-9xl text-manjocarn-forest-green mb-4 drop-shadow-lg leading-none">
             {"Manjocarn".split("").map((letter, index) => (
               <motion.span
                 key={index}
-                className="inline-block hover:text-manjocarn-sunset-orange transition-colors duration-300 cursor-pointer"
+                className="inline-block hover:text-manjocarn-sage-green transition-colors duration-300 cursor-pointer"
                 whileHover={{
                   y: -10,
                   rotate: index % 2 === 0 ? -5 : 5,
@@ -163,8 +160,9 @@ const HeroSection = () => {
               </motion.span>
             ))}
           </h1>
+
           <motion.p
-            className="font-amatic text-xl sm:text-2xl md:text-3xl text-manjocarn-sand-beige tracking-wider drop-shadow-lg"
+            className="font-amatic text-xl sm:text-2xl md:text-3xl text-manjocarn-sage-green tracking-wider drop-shadow-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
@@ -172,9 +170,8 @@ const HeroSection = () => {
             Guinguette en pleine nature
           </motion.p>
 
-          {/* Sous-titre ajouté */}
           <motion.p
-            className="font-poppins text-sm sm:text-base md:text-lg text-manjocarn-light-sage mt-4 max-w-2xl mx-auto"
+            className="font-poppins text-sm sm:text-base md:text-lg text-manjocarn-dark-gray mt-4 max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5 }}
@@ -185,9 +182,9 @@ const HeroSection = () => {
 
         {/* Navigation responsive */}
         {isMobile ? (
-          // Version mobile : grille organisée
+          // Version mobile simplifiée
           <motion.div
-            className="grid grid-cols-3 gap-4 w-full max-w-sm px-4"
+            className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full max-w-sm px-4"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 2 }}
@@ -203,23 +200,23 @@ const HeroSection = () => {
                   type: "spring",
                   stiffness: 200,
                 }}
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection(button.id)}
               >
-                <div className="w-16 h-16 bg-manjocarn-light-sage/95 backdrop-blur-sm border-2 border-manjocarn-golden-yellow/50 rounded-full flex items-center justify-center transition-all duration-300 group-hover:bg-manjocarn-golden-yellow group-hover:border-manjocarn-sunset-orange shadow-warm-lg">
-                  <span className="text-2xl group-hover:scale-110 transition-transform">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white/90 backdrop-blur-sm border-2 border-manjocarn-sage-green/50 rounded-full flex items-center justify-center transition-all duration-300 group-hover:bg-manjocarn-sage-green group-hover:border-manjocarn-forest-green shadow-lg">
+                  <span className="text-xl sm:text-2xl group-hover:scale-110 transition-transform">
                     {button.icon}
                   </span>
                 </div>
-                <div className="mt-2 text-xs text-manjocarn-sand-beige font-medium text-center">
+                <div className="mt-2 text-xs text-manjocarn-dark-gray font-medium text-center">
                   {button.label}
                 </div>
               </motion.button>
             ))}
           </motion.div>
         ) : (
-          // Version desktop : boutons dispersés
+          // Version desktop
           <div className="absolute inset-0 pointer-events-none">
             {navigationButtons.map((button, index) => (
               <motion.button
@@ -243,14 +240,13 @@ const HeroSection = () => {
                 onMouseLeave={() => setHoveredButton(null)}
               >
                 <div className="relative">
-                  {/* Cercle principal avec texture améliorée */}
-                  <div className="w-16 h-16 md:w-20 md:h-20 bg-manjocarn-light-sage/95 backdrop-blur-sm border-2 border-manjocarn-golden-yellow/50 rounded-full flex items-center justify-center transition-all duration-300 group-hover:bg-manjocarn-golden-yellow group-hover:border-manjocarn-sunset-orange group-hover:scale-110 shadow-warm-lg">
+                  <div className="w-16 h-16 md:w-20 md:h-20 bg-white/90 backdrop-blur-sm border-2 border-manjocarn-sage-green/50 rounded-full flex items-center justify-center transition-all duration-300 group-hover:bg-manjocarn-sage-green group-hover:border-manjocarn-forest-green group-hover:scale-110 shadow-lg">
                     <span className="text-2xl md:text-3xl group-hover:scale-110 transition-transform">
                       {button.icon}
                     </span>
                   </div>
 
-                  {/* Label animé amélioré */}
+                  {/* Label animé */}
                   <motion.div
                     className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap"
                     initial={{ opacity: 0, y: 10 }}
@@ -260,12 +256,12 @@ const HeroSection = () => {
                     }}
                     transition={{ duration: 0.2 }}
                   >
-                    <span className="bg-manjocarn-deep-forest text-manjocarn-golden-yellow px-4 py-2 rounded-full text-sm font-medium shadow-nature-lg border border-manjocarn-golden-yellow/30">
+                    <span className="bg-manjocarn-forest-green text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg border border-manjocarn-sage-green/30">
                       {button.label}
                     </span>
                   </motion.div>
 
-                  {/* Effet de pulsation naturel */}
+                  {/* Effet de pulsation */}
                   <motion.div
                     className="absolute inset-0 border-2 border-manjocarn-mint-green/70 rounded-full"
                     animate={{
@@ -283,7 +279,7 @@ const HeroSection = () => {
           </div>
         )}
 
-        {/* Indicateur de scroll amélioré */}
+        {/* Indicateur de scroll */}
         <motion.div
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
           initial={{ opacity: 0 }}
@@ -294,7 +290,7 @@ const HeroSection = () => {
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="text-manjocarn-light-sage hover:text-manjocarn-golden-yellow transition-colors flex flex-col items-center"
+            className="text-manjocarn-sage-green hover:text-manjocarn-forest-green transition-colors flex flex-col items-center"
           >
             <span className="text-sm mb-2 font-medium">Découvrir</span>
             <ChevronDown size={32} />
