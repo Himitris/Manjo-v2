@@ -45,37 +45,6 @@ const ContactSection = () => {
     },
   ];
 
-  const transportOptions = [
-    {
-      icon: <Car className="w-6 h-6" />,
-      title: "En voiture",
-      description: "Parking gratuit sur place",
-      time: "Le plus pratique",
-      details: ["Accès direct", "Stationnement facile", "Idéal familles"],
-    },
-    {
-      icon: <Train className="w-6 h-6" />,
-      title: "En train",
-      description: "Gare la plus proche à Caussade",
-      time: "Puis 20min en voiture",
-      details: ["Gare SNCF", "Location voiture", "Service taxi"],
-    },
-    {
-      icon: <Navigation className="w-6 h-6" />,
-      title: "À pied",
-      description: "Randonnées et sentiers",
-      time: "Depuis le village",
-      details: ["Chemins balisés", "Vue panoramique", "15min marche"],
-    },
-    {
-      icon: <Plane className="w-6 h-6" />,
-      title: "En avion",
-      description: "Aéroport Toulouse-Blagnac",
-      time: "1h30 en voiture",
-      details: ["Location voiture", "Navettes", "115km"],
-    },
-  ];
-
   const practicalInfo = [
     {
       icon: "🅿️",
@@ -103,7 +72,7 @@ const ContactSection = () => {
     <Section
       variant="dark"
       id="contact"
-      className="bg-gradient-to-br from-manjocarn-deep-forest via-manjocarn-forest-green to-manjocarn-pine-green text-manjocarn-sand-beige relative overflow-hidden"
+      className="bg-gradient-to-br from-manjocarn-deep-forest via-manjocarn-forest-green to-manjocarn-pine-green text-white relative overflow-hidden"
     >
       {/* Éléments décoratifs nocturnes */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -145,7 +114,7 @@ const ContactSection = () => {
         {/* En-tête */}
         <motion.div className="text-center mb-16" variants={fadeInUp}>
           <motion.div
-            className="inline-flex items-center mb-6 bg-manjocarn-sage-green/20 backdrop-blur-sm px-8 py-4 rounded-full border border-manjocarn-golden-yellow/30"
+            className="inline-flex items-center mb-6 bg-white/10 backdrop-blur-sm px-8 py-4 rounded-full border border-manjocarn-golden-yellow/30"
             whileHover={{ scale: 1.05 }}
           >
             <motion.div
@@ -154,9 +123,7 @@ const ContactSection = () => {
             >
               <MapPin className="mr-3 text-manjocarn-golden-yellow" size={32} />
             </motion.div>
-            <span className="text-lg font-semibold text-manjocarn-sand-beige">
-              Contact
-            </span>
+            <span className="text-lg font-semibold text-black">Contact</span>
           </motion.div>
 
           <h2 className="font-playfair text-4xl md:text-6xl mb-6 text-manjocarn-golden-yellow">
@@ -171,7 +138,7 @@ const ContactSection = () => {
             transition={{ duration: 1, delay: 0.5 }}
           />
 
-          <p className="mt-6 text-lg text-manjocarn-sand-beige/80 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-6 text-lg text-black/80 max-w-2xl mx-auto leading-relaxed">
             Venez découvrir notre petit coin de paradis en pleine nature,
             accessible et accueillant.
           </p>
@@ -185,13 +152,13 @@ const ContactSection = () => {
           {contactMethods.map((method, index) => (
             <motion.div
               key={index}
-              className="bg-manjocarn-sage-green/10 backdrop-blur-sm rounded-2xl p-8 border border-manjocarn-golden-yellow/20 hover:border-manjocarn-golden-yellow/40 transition-all duration-300 cursor-pointer group"
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-manjocarn-golden-yellow/20 hover:border-manjocarn-golden-yellow/40 transition-all duration-300 cursor-pointer group"
               variants={fadeInUp}
               whileHover={{ y: -5, scale: 1.02 }}
               onClick={method.action}
             >
               <motion.div
-                className={`w-16 h-16 bg-gradient-to-r ${method.color} rounded-2xl flex items-center justify-center mx-auto mb-6 text-white shadow-nature group-hover:scale-110 transition-transform duration-300`}
+                className={`w-16 h-16 bg-gradient-to-r ${method.color} rounded-2xl flex items-center justify-center mx-auto mb-6 text-black shadow-nature group-hover:scale-110 transition-transform duration-300`}
                 whileHover={{ rotate: 10 }}
               >
                 {method.icon}
@@ -201,11 +168,11 @@ const ContactSection = () => {
                 {method.title}
               </h3>
 
-              <p className="text-manjocarn-sand-beige text-lg font-semibold text-center mb-2">
+              <p className="text-black text-lg font-semibold text-center mb-2">
                 {method.main}
               </p>
 
-              <p className="text-manjocarn-sand-beige/70 text-sm text-center">
+              <p className="text-black/70 text-sm text-center">
                 {method.subtitle}
               </p>
 
@@ -230,7 +197,7 @@ const ContactSection = () => {
             {practicalInfo.map((info, index) => (
               <motion.div
                 key={index}
-                className="text-center bg-manjocarn-sage-green/10 backdrop-blur-sm rounded-xl p-6 border border-manjocarn-sage-green/20"
+                className="text-center bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-manjocarn-sage-green/20"
                 variants={fadeInUp}
                 whileHover={{ scale: 1.05 }}
               >
@@ -249,10 +216,8 @@ const ContactSection = () => {
                 >
                   {info.icon}
                 </motion.div>
-                <h4 className="font-semibold text-manjocarn-sand-beige mb-2">
-                  {info.title}
-                </h4>
-                <p className="text-sm text-manjocarn-sand-beige/70 leading-relaxed">
+                <h4 className="font-semibold text-black mb-2">{info.title}</h4>
+                <p className="text-sm text-black/70 leading-relaxed">
                   {info.description}
                 </p>
               </motion.div>
@@ -262,7 +227,7 @@ const ContactSection = () => {
 
         {/* Carte intégrée (simulation) */}
         <motion.div
-          className="mb-16 bg-manjocarn-sage-green/10 backdrop-blur-sm rounded-2xl p-8 border border-manjocarn-golden-yellow/20"
+          className="mb-16 bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-manjocarn-golden-yellow/20"
           variants={fadeInUp}
         >
           <h3 className="font-playfair text-2xl text-manjocarn-golden-yellow text-center mb-6 font-bold">
@@ -270,7 +235,7 @@ const ContactSection = () => {
           </h3>
 
           <div
-            className="aspect-video bg-manjocarn-forest-green/30 rounded-xl flex items-center justify-center relative overflow-hidden group cursor-pointer hover:bg-manjocarn-forest-green/40 transition-colors duration-300"
+            className="aspect-video bg-manjocarn-forest-green/30 rounded-xl flex items-center justify-center relative overflow-hidden group cursor-pointer hover:bg-manjocarn-forest-green/40 transition-colors duration-300 border-2 border-manjocarn-golden-yellow/20"
             onClick={() =>
               window.open(
                 "https://maps.google.com/?q=Manjocarn+Saint-Antonin-Noble-Val",
@@ -279,7 +244,7 @@ const ContactSection = () => {
             }
           >
             <motion.div
-              className="text-center text-manjocarn-sand-beige"
+              className="text-center text-black"
               whileHover={{ scale: 1.1 }}
             >
               <MapPin
@@ -287,10 +252,8 @@ const ContactSection = () => {
                 className="mx-auto mb-4 text-manjocarn-golden-yellow"
               />
               <h4 className="text-xl font-semibold mb-2">Manjocarn</h4>
-              <p className="text-manjocarn-sand-beige/80">
-                Saint-Antonin-Noble-Val, 82140
-              </p>
-              <p className="text-sm text-manjocarn-sand-beige/60 mt-2">
+              <p className="text-black/80">Saint-Antonin-Noble-Val, 82140</p>
+              <p className="text-sm text-black/60 mt-2">
                 Cliquez pour ouvrir dans Maps
               </p>
             </motion.div>
@@ -322,18 +285,18 @@ const ContactSection = () => {
             Manjocarn
           </motion.h3>
 
-          <p className="text-manjocarn-sand-beige/80 text-lg mb-6">
+          <p className="text-black/80 text-lg mb-6">
             Guinguette en pleine nature • Plage privée • Accès rivière
           </p>
 
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-manjocarn-sand-beige/70 mb-6">
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-black/70 mb-6">
             <span>📍 Saint-Antonin-Noble-Val</span>
             <span>📞 +33 5 63 68 25 85</span>
             <span>⏰ Selon saison</span>
           </div>
 
           <motion.div
-            className="text-manjocarn-sand-beige/60 text-sm"
+            className="text-black/60 text-sm"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}

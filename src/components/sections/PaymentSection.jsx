@@ -1,5 +1,5 @@
 // src/components/sections/PaymentSection.jsx
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Phone,
   CreditCard,
@@ -9,6 +9,7 @@ import {
   Clock,
   Users,
   Utensils,
+  ShoppingBasket,
 } from "lucide-react";
 import Section from "../ui/Section";
 import { staggerContainer, fadeInUp } from "@/utils/animations";
@@ -38,20 +39,38 @@ const PaymentSection = () => {
 
   const reservationOptions = [
     {
-      icon: <Utensils className="w-12 h-12" />,
+      icon: <Utensils className="w-12 h-12 text-manjocarn-forest-green" />,
       title: "Réserver une table",
-      description: "Pour déguster nos spécialités dans notre guinguette",
+      description:
+        "Pour déguster nos spécialités dans notre restaurant guinguette",
       action: "Appeler",
       color: "from-manjocarn-sage-green to-manjocarn-forest-green",
-      features: ["Terrasse ombragée", "Vue sur rivière", "Ambiance conviviale"],
+      features: [
+        "Terrasse ombragée",
+        "Vue sur rivière",
+        "Ambiance conviviale",
+        "Service à table",
+      ],
+      note: "Réservation uniquement par téléphone",
+      phone: "+33 5 63 68 25 85",
     },
     {
-      icon: <Users className="w-12 h-12" />,
+      icon: (
+        <ShoppingBasket className="w-12 h-12 text-manjocarn-sunset-orange" />
+      ),
       title: "Pique-nique",
-      description: "Location d'emplacement ou pique-nique préparé",
+      description:
+        "Commander un pique-nique préparé ou réserver un emplacement",
       action: "Réserver",
       color: "from-manjocarn-sunset-orange to-manjocarn-golden-yellow",
-      features: ["Plage privée", "Tables disponibles", "Au frais"],
+      features: [
+        "Plage privée",
+        "Tables disponibles",
+        "Conservation au frais",
+        "Pique-nique préparé ou apporté",
+      ],
+      note: "Réservation en ligne disponible",
+      isModal: true,
     },
   ];
 
@@ -64,18 +83,19 @@ const PaymentSection = () => {
       {/* Éléments décoratifs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
-          className="absolute top-20 right-16 text-manjocarn-golden-yellow/20 text-8xl"
+          className="absolute top-20 right-16 text-8xl"
           animate={{
             rotate: [0, 10, -5, 0],
             scale: [1, 1.1, 0.9, 1],
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          style={{ color: "rgba(255, 215, 0, 0.2)" }}
         >
           💳
         </motion.div>
 
         <motion.div
-          className="absolute bottom-32 left-20 text-manjocarn-sage-green/15 text-6xl"
+          className="absolute bottom-32 left-20 text-6xl"
           animate={{
             y: [0, -20, 0],
             rotate: [0, 15, 0],
@@ -86,6 +106,7 @@ const PaymentSection = () => {
             ease: "easeInOut",
             delay: 2,
           }}
+          style={{ color: "rgba(106, 142, 107, 0.15)" }}
         >
           📞
         </motion.div>
@@ -131,8 +152,8 @@ const PaymentSection = () => {
           />
 
           <p className="mt-6 text-lg text-manjocarn-dark-gray max-w-2xl mx-auto leading-relaxed">
-            Réservez votre moment de détente au Manjocarn en quelques clics ou
-            un simple appel.
+            Réservez votre moment de détente au Manjocarn. Choisissez entre une
+            table au restaurant ou un emplacement pique-nique.
           </p>
         </motion.div>
 
@@ -156,7 +177,7 @@ const PaymentSection = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
                   activeTab === tab.id
-                    ? "bg-gradient-to-r from-manjocarn-sage-green to-manjocarn-forest-green text-manjocarn-sand-beige shadow-nature"
+                    ? "bg-gradient-to-r from-manjocarn-sage-green to-manjocarn-forest-green text-white shadow-nature"
                     : "text-manjocarn-dark-gray hover:bg-manjocarn-sage-green/20"
                 }`}
               >
@@ -167,21 +188,24 @@ const PaymentSection = () => {
           </div>
         </motion.div>
 
-        {/* Contenu des onglets */}
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {activeTab === "reservation" ? (
-            // Section Réservation
-            <div className="grid lg:grid-cols-2 gap-8">
+        {/* Contenu des onglets avec AnimatePresence */}
+        <AnimatePresence mode="wait">
+          {activeTab === "reservation" && (
+            <motion.div
+              key="reservation-tab"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="grid lg:grid-cols-2 gap-8 min-h-[600px]"
+            >
               {reservationOptions.map((option, index) => (
                 <motion.div
                   key={index}
                   className="card-nature rounded-2xl p-8 hover:shadow-nature-lg transition-all duration-300 relative overflow-hidden group"
-                  variants={fadeInUp}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -5, scale: 1.02 }}
                 >
                   {/* Effet de brillance */}
@@ -212,6 +236,13 @@ const PaymentSection = () => {
 
                       <p className="text-manjocarn-dark-gray leading-relaxed">
                         {option.description}
+                      </p>
+                    </div>
+
+                    {/* Note importante */}
+                    <div className="mb-6 p-4 bg-manjocarn-golden-yellow/20 border border-manjocarn-golden-yellow/40 rounded-xl">
+                      <p className="text-sm text-manjocarn-forest-green font-medium text-center">
+                        💡 {option.note}
                       </p>
                     </div>
 
@@ -255,14 +286,14 @@ const PaymentSection = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => {
-                        if (option.action === "Réserver") {
+                        if (option.isModal) {
                           setShowReservation(true);
                         } else {
                           window.location.href = "tel:+33563682585";
                         }
                       }}
                     >
-                      {option.action === "Réserver" ? (
+                      {option.isModal ? (
                         <>
                           <Calendar className="inline mr-3" size={20} />
                           Réserver en ligne
@@ -277,12 +308,22 @@ const PaymentSection = () => {
                   </div>
                 </motion.div>
               ))}
-            </div>
-          ) : (
-            // Section Paiement
-            <div className="max-w-4xl mx-auto">
+            </motion.div>
+          )}
+
+          {activeTab === "payment" && (
+            <motion.div
+              key="payment-tab"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="max-w-4xl mx-auto min-h-[600px]"
+            >
               <motion.div
-                className="grid md:grid-cols-2 gap-8"
+                className="grid md:grid-cols-2 gap-8 mb-12"
+                initial="hidden"
+                animate="visible"
                 variants={staggerContainer}
               >
                 {paymentMethods.map((method, index) => (
@@ -327,8 +368,10 @@ const PaymentSection = () => {
 
               {/* Informations supplémentaires */}
               <motion.div
-                className="mt-12 card-nature rounded-2xl p-8 text-center bg-gradient-to-r from-manjocarn-background to-manjocarn-sand-beige/50"
-                variants={fadeInUp}
+                className="card-nature rounded-2xl p-8 text-center bg-gradient-to-r from-manjocarn-background to-manjocarn-sand-beige/50"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
               >
                 <motion.div
                   className="text-4xl mb-4"
@@ -345,14 +388,14 @@ const PaymentSection = () => {
                   Bon à savoir
                 </h3>
                 <div className="grid md:grid-cols-2 gap-6 text-sm text-manjocarn-dark-gray">
-                  <div className="flex items-center">
+                  <div className="flex items-center justify-center">
                     <MapPin
                       size={16}
                       className="mr-2 text-manjocarn-sage-green"
                     />
                     <span>Paiement sur place uniquement</span>
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex items-center justify-center">
                     <Clock
                       size={16}
                       className="mr-2 text-manjocarn-sage-green"
@@ -361,9 +404,9 @@ const PaymentSection = () => {
                   </div>
                 </div>
               </motion.div>
-            </div>
+            </motion.div>
           )}
-        </motion.div>
+        </AnimatePresence>
 
         {/* Section contact d'urgence */}
         <motion.div
@@ -399,7 +442,7 @@ const PaymentSection = () => {
         </motion.div>
       </motion.div>
 
-      {/* Modal de réservation */}
+      {/* Modal de réservation - uniquement pour les pique-niques */}
       {showReservation && (
         <ReservationModal onClose={() => setShowReservation(false)} />
       )}
