@@ -114,22 +114,22 @@ const ReservationModal = ({ onClose }) => {
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
       >
         <motion.div
-          className="bg-white rounded-3xl max-w-2xl w-full max-h-[95vh] overflow-hidden shadow-2xl"
+          className="bg-manjocarn-sand-beige rounded-3xl max-w-2xl w-full max-h-[95vh] overflow-hidden shadow-2xl border border-manjocarn-sage-green/30"
           initial={{ scale: 0.8, opacity: 0, y: 50 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.8, opacity: 0, y: 50 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Header avec progression */}
-          <div className="bg-gradient-to-r from-manjocarn-sage-green to-manjocarn-forest-green text-white p-6 relative overflow-hidden">
+          {/* Header avec progression - meilleur contraste */}
+          <div className="bg-gradient-to-r from-manjocarn-sage-green to-manjocarn-forest-green text-manjocarn-sand-beige p-6 relative overflow-hidden">
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
               initial={{ x: "-100%" }}
@@ -139,7 +139,7 @@ const ReservationModal = ({ onClose }) => {
 
             <div className="relative z-10 flex justify-between items-center">
               <div>
-                <h2 className="font-playfair text-2xl font-bold mb-2">
+                <h2 className="font-playfair text-2xl font-bold mb-2 text-manjocarn-sand-beige">
                   Réservation Pique-nique
                 </h2>
                 <div className="flex items-center space-x-2">
@@ -149,7 +149,7 @@ const ReservationModal = ({ onClose }) => {
                         className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
                           step >= stepNum
                             ? "bg-manjocarn-golden-yellow text-manjocarn-forest-green"
-                            : "bg-white/20 text-white/70"
+                            : "bg-manjocarn-sand-beige/20 text-manjocarn-sand-beige/70"
                         }`}
                       >
                         {step > stepNum ? <Check size={16} /> : stepNum}
@@ -159,7 +159,7 @@ const ReservationModal = ({ onClose }) => {
                           className={`w-12 h-1 mx-2 rounded transition-all duration-300 ${
                             step > stepNum
                               ? "bg-manjocarn-golden-yellow"
-                              : "bg-white/20"
+                              : "bg-manjocarn-sand-beige/20"
                           }`}
                         />
                       )}
@@ -170,14 +170,14 @@ const ReservationModal = ({ onClose }) => {
 
               <button
                 onClick={onClose}
-                className="hover:scale-110 transition-transform bg-white/20 hover:bg-white/30 rounded-full p-2"
+                className="hover:scale-110 transition-transform bg-manjocarn-sand-beige/20 hover:bg-manjocarn-sand-beige/30 rounded-full p-2 text-manjocarn-sand-beige"
               >
                 <X size={24} />
               </button>
             </div>
           </div>
 
-          {/* Contenu */}
+          {/* Contenu avec meilleur contraste */}
           <div className="p-6 overflow-y-auto max-h-[calc(95vh-120px)]">
             <AnimatePresence mode="wait">
               {/* Étape 1: Choix du type */}
@@ -201,7 +201,7 @@ const ReservationModal = ({ onClose }) => {
                         className={`w-full p-6 rounded-2xl border-2 text-left transition-all duration-300 relative overflow-hidden ${
                           reservationType === option.id
                             ? "border-manjocarn-forest-green bg-manjocarn-sage-green/10 scale-[1.02]"
-                            : "border-manjocarn-sage-green/30 hover:border-manjocarn-sage-green/60 hover:scale-[1.01]"
+                            : "border-manjocarn-sage-green/30 hover:border-manjocarn-sage-green/60 hover:scale-[1.01] bg-white"
                         }`}
                         onClick={() => setReservationType(option.id)}
                         whileHover={{ y: -2 }}
@@ -209,7 +209,7 @@ const ReservationModal = ({ onClose }) => {
                       >
                         {/* Badge populaire */}
                         {option.popular && (
-                          <div className="absolute top-4 right-4 bg-manjocarn-sunset-orange text-white text-xs px-3 py-1 rounded-full font-bold">
+                          <div className="absolute top-4 right-4 bg-manjocarn-sunset-orange text-manjocarn-sand-beige text-xs px-3 py-1 rounded-full font-bold">
                             Populaire
                           </div>
                         )}
@@ -231,7 +231,7 @@ const ReservationModal = ({ onClose }) => {
                         <div className="relative z-10">
                           <div className="flex items-start mb-4">
                             <motion.div
-                              className={`w-16 h-16 bg-gradient-to-r ${option.color} rounded-2xl flex items-center justify-center text-white mr-4 shadow-nature`}
+                              className={`w-16 h-16 bg-gradient-to-r ${option.color} rounded-2xl flex items-center justify-center text-manjocarn-sand-beige mr-4 shadow-nature`}
                               whileHover={{ rotate: 5, scale: 1.05 }}
                             >
                               {option.icon}
@@ -268,7 +268,7 @@ const ReservationModal = ({ onClose }) => {
                   </div>
 
                   <motion.button
-                    className="w-full mt-8 bg-gradient-to-r from-manjocarn-sage-green to-manjocarn-forest-green text-white py-4 rounded-2xl font-semibold text-lg shadow-nature hover:shadow-nature-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                    className="w-full mt-8 bg-gradient-to-r from-manjocarn-sage-green to-manjocarn-forest-green text-manjocarn-sand-beige py-4 rounded-2xl font-semibold text-lg shadow-nature hover:shadow-nature-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
                     disabled={!reservationType}
                     onClick={nextStep}
                     whileHover={{ scale: reservationType ? 1.02 : 1 }}
@@ -290,7 +290,7 @@ const ReservationModal = ({ onClose }) => {
                 </motion.div>
               )}
 
-              {/* Étape 2: Informations */}
+              {/* Étape 2: Informations avec meilleur contraste */}
               {step === 2 && (
                 <motion.div
                   key="step2"
@@ -319,11 +319,11 @@ const ReservationModal = ({ onClose }) => {
                               message: "Minimum 2 caractères",
                             },
                           })}
-                          className="w-full p-3 border-2 border-manjocarn-sage-green/30 rounded-xl focus:border-manjocarn-forest-green outline-none transition-colors duration-300 bg-manjocarn-background/50"
+                          className="w-full p-3 border-2 border-manjocarn-sage-green/30 rounded-xl focus:border-manjocarn-forest-green outline-none transition-colors duration-300 bg-white text-manjocarn-dark-gray"
                           placeholder="Votre prénom"
                         />
                         {errors.prenom && (
-                          <p className="text-red-500 text-sm mt-1 flex items-center">
+                          <p className="text-red-600 text-sm mt-1 flex items-center">
                             <AlertCircle size={14} className="mr-1" />
                             {errors.prenom.message}
                           </p>
@@ -342,11 +342,11 @@ const ReservationModal = ({ onClose }) => {
                               message: "Minimum 2 caractères",
                             },
                           })}
-                          className="w-full p-3 border-2 border-manjocarn-sage-green/30 rounded-xl focus:border-manjocarn-forest-green outline-none transition-colors duration-300 bg-manjocarn-background/50"
+                          className="w-full p-3 border-2 border-manjocarn-sage-green/30 rounded-xl focus:border-manjocarn-forest-green outline-none transition-colors duration-300 bg-white text-manjocarn-dark-gray"
                           placeholder="Votre nom"
                         />
                         {errors.nom && (
-                          <p className="text-red-500 text-sm mt-1 flex items-center">
+                          <p className="text-red-600 text-sm mt-1 flex items-center">
                             <AlertCircle size={14} className="mr-1" />
                             {errors.nom.message}
                           </p>
@@ -367,11 +367,11 @@ const ReservationModal = ({ onClose }) => {
                             message: "Email invalide",
                           },
                         })}
-                        className="w-full p-3 border-2 border-manjocarn-sage-green/30 rounded-xl focus:border-manjocarn-forest-green outline-none transition-colors duration-300 bg-manjocarn-background/50"
+                        className="w-full p-3 border-2 border-manjocarn-sage-green/30 rounded-xl focus:border-manjocarn-forest-green outline-none transition-colors duration-300 bg-white text-manjocarn-dark-gray"
                         placeholder="votre@email.com"
                       />
                       {errors.email && (
-                        <p className="text-red-500 text-sm mt-1 flex items-center">
+                        <p className="text-red-600 text-sm mt-1 flex items-center">
                           <AlertCircle size={14} className="mr-1" />
                           {errors.email.message}
                         </p>
@@ -391,11 +391,11 @@ const ReservationModal = ({ onClose }) => {
                             message: "Numéro invalide",
                           },
                         })}
-                        className="w-full p-3 border-2 border-manjocarn-sage-green/30 rounded-xl focus:border-manjocarn-forest-green outline-none transition-colors duration-300 bg-manjocarn-background/50"
+                        className="w-full p-3 border-2 border-manjocarn-sage-green/30 rounded-xl focus:border-manjocarn-forest-green outline-none transition-colors duration-300 bg-white text-manjocarn-dark-gray"
                         placeholder="06 12 34 56 78"
                       />
                       {errors.telephone && (
-                        <p className="text-red-500 text-sm mt-1 flex items-center">
+                        <p className="text-red-600 text-sm mt-1 flex items-center">
                           <AlertCircle size={14} className="mr-1" />
                           {errors.telephone.message}
                         </p>
@@ -423,7 +423,7 @@ const ReservationModal = ({ onClose }) => {
                               );
                             },
                           })}
-                          className="w-full p-3 border-2 border-manjocarn-sage-green/30 rounded-xl focus:border-manjocarn-forest-green outline-none transition-colors duration-300 bg-manjocarn-background/50"
+                          className="w-full p-3 border-2 border-manjocarn-sage-green/30 rounded-xl focus:border-manjocarn-forest-green outline-none transition-colors duration-300 bg-white text-manjocarn-dark-gray"
                           min={
                             new Date(Date.now() + 86400000)
                               .toISOString()
@@ -431,7 +431,7 @@ const ReservationModal = ({ onClose }) => {
                           }
                         />
                         {errors.date && (
-                          <p className="text-red-500 text-sm mt-1 flex items-center">
+                          <p className="text-red-600 text-sm mt-1 flex items-center">
                             <AlertCircle size={14} className="mr-1" />
                             {errors.date.message}
                           </p>
@@ -452,11 +452,11 @@ const ReservationModal = ({ onClose }) => {
                             min: { value: 1, message: "Minimum 1 personne" },
                             max: { value: 20, message: "Maximum 20 personnes" },
                           })}
-                          className="w-full p-3 border-2 border-manjocarn-sage-green/30 rounded-xl focus:border-manjocarn-forest-green outline-none transition-colors duration-300 bg-manjocarn-background/50"
+                          className="w-full p-3 border-2 border-manjocarn-sage-green/30 rounded-xl focus:border-manjocarn-forest-green outline-none transition-colors duration-300 bg-white text-manjocarn-dark-gray"
                           placeholder="4"
                         />
                         {errors.nbPersonnes && (
-                          <p className="text-red-500 text-sm mt-1 flex items-center">
+                          <p className="text-red-600 text-sm mt-1 flex items-center">
                             <AlertCircle size={14} className="mr-1" />
                             {errors.nbPersonnes.message}
                           </p>
@@ -464,7 +464,7 @@ const ReservationModal = ({ onClose }) => {
                       </div>
                     </div>
 
-                    {/* Créneaux horaires */}
+                    {/* Créneaux horaires avec meilleur contraste */}
                     <div>
                       <label className="block text-manjocarn-dark-gray font-medium mb-3 flex items-center">
                         <Clock className="mr-2" size={16} />
@@ -485,7 +485,7 @@ const ReservationModal = ({ onClose }) => {
                               className={`p-3 text-center rounded-xl border-2 transition-all duration-300 ${
                                 watchedValues.heure === time
                                   ? "border-manjocarn-forest-green bg-manjocarn-sage-green/20 text-manjocarn-forest-green font-bold"
-                                  : "border-manjocarn-sage-green/30 hover:border-manjocarn-sage-green/60 text-manjocarn-dark-gray"
+                                  : "border-manjocarn-sage-green/30 hover:border-manjocarn-sage-green/60 text-manjocarn-dark-gray bg-white"
                               }`}
                             >
                               {time}
@@ -494,7 +494,7 @@ const ReservationModal = ({ onClose }) => {
                         ))}
                       </div>
                       {errors.heure && (
-                        <p className="text-red-500 text-sm mt-2 flex items-center">
+                        <p className="text-red-600 text-sm mt-2 flex items-center">
                           <AlertCircle size={14} className="mr-1" />
                           {errors.heure.message}
                         </p>
@@ -509,7 +509,7 @@ const ReservationModal = ({ onClose }) => {
                       <textarea
                         {...register("message")}
                         rows="3"
-                        className="w-full p-3 border-2 border-manjocarn-sage-green/30 rounded-xl focus:border-manjocarn-forest-green outline-none transition-colors duration-300 bg-manjocarn-background/50 resize-none"
+                        className="w-full p-3 border-2 border-manjocarn-sage-green/30 rounded-xl focus:border-manjocarn-forest-green outline-none transition-colors duration-300 bg-white text-manjocarn-dark-gray resize-none"
                         placeholder="Demandes particulières, allergies, etc."
                       />
                     </div>
@@ -527,7 +527,7 @@ const ReservationModal = ({ onClose }) => {
                     <button
                       type="button"
                       onClick={nextStep}
-                      className="flex-1 bg-gradient-to-r from-manjocarn-sage-green to-manjocarn-forest-green text-white py-3 rounded-xl font-medium hover:shadow-nature-lg transition-all duration-300"
+                      className="flex-1 bg-gradient-to-r from-manjocarn-sage-green to-manjocarn-forest-green text-manjocarn-sand-beige py-3 rounded-xl font-medium hover:shadow-nature-lg transition-all duration-300"
                     >
                       Récapitulatif
                     </button>
@@ -535,7 +535,7 @@ const ReservationModal = ({ onClose }) => {
                 </motion.div>
               )}
 
-              {/* Étape 3: Récapitulatif */}
+              {/* Étape 3: Récapitulatif avec meilleur contraste */}
               {step === 3 && !isSuccess && (
                 <motion.div
                   key="step3"
@@ -549,7 +549,7 @@ const ReservationModal = ({ onClose }) => {
                     Récapitulatif de votre réservation
                   </h3>
 
-                  <div className="card-nature rounded-2xl p-6 mb-6">
+                  <div className="bg-white rounded-2xl p-6 mb-6 border border-manjocarn-sage-green/30">
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
                         <h4 className="font-semibold text-manjocarn-forest-green mb-3">
@@ -562,7 +562,7 @@ const ReservationModal = ({ onClose }) => {
                                 (o) => o.id === reservationType
                               )?.icon
                             }
-                            <span className="ml-3 font-semibold">
+                            <span className="ml-3 font-semibold text-manjocarn-dark-gray">
                               {
                                 reservationOptions.find(
                                   (o) => o.id === reservationType
@@ -586,8 +586,10 @@ const ReservationModal = ({ onClose }) => {
                         </h4>
                         <div className="space-y-2 text-sm">
                           <div className="flex justify-between">
-                            <span>Date :</span>
-                            <span className="font-medium">
+                            <span className="text-manjocarn-dark-gray">
+                              Date :
+                            </span>
+                            <span className="font-medium text-manjocarn-dark-gray">
                               {watchedValues.date &&
                                 new Date(watchedValues.date).toLocaleDateString(
                                   "fr-FR"
@@ -595,20 +597,26 @@ const ReservationModal = ({ onClose }) => {
                             </span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Heure :</span>
-                            <span className="font-medium">
+                            <span className="text-manjocarn-dark-gray">
+                              Heure :
+                            </span>
+                            <span className="font-medium text-manjocarn-dark-gray">
                               {watchedValues.heure}
                             </span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Personnes :</span>
-                            <span className="font-medium">
+                            <span className="text-manjocarn-dark-gray">
+                              Personnes :
+                            </span>
+                            <span className="font-medium text-manjocarn-dark-gray">
                               {watchedValues.nbPersonnes}
                             </span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Contact :</span>
-                            <span className="font-medium">
+                            <span className="text-manjocarn-dark-gray">
+                              Contact :
+                            </span>
+                            <span className="font-medium text-manjocarn-dark-gray">
                               {watchedValues.prenom} {watchedValues.nom}
                             </span>
                           </div>
@@ -621,15 +629,15 @@ const ReservationModal = ({ onClose }) => {
                         <h4 className="font-semibold text-manjocarn-forest-green mb-2">
                           Message
                         </h4>
-                        <p className="text-sm text-manjocarn-dark-gray bg-manjocarn-background/50 p-3 rounded-lg">
+                        <p className="text-sm text-manjocarn-dark-gray bg-manjocarn-sage-green/10 p-3 rounded-lg">
                           {watchedValues.message}
                         </p>
                       </div>
                     )}
                   </div>
 
-                  {/* Note importante */}
-                  <div className="bg-manjocarn-golden-yellow/20 border border-manjocarn-golden-yellow/40 rounded-xl p-4 mb-6">
+                  {/* Note importante avec meilleur contraste */}
+                  <div className="bg-manjocarn-golden-yellow/20 border border-manjocarn-golden-yellow/60 rounded-xl p-4 mb-6">
                     <div className="flex items-start">
                       <Phone
                         className="text-manjocarn-sunset-orange mr-3 mt-1"
@@ -661,14 +669,14 @@ const ReservationModal = ({ onClose }) => {
                       type="button"
                       onClick={handleSubmit(onSubmit)}
                       disabled={isSubmitting}
-                      className="flex-1 bg-gradient-to-r from-manjocarn-sage-green to-manjocarn-forest-green text-white py-4 rounded-xl font-semibold hover:shadow-nature-lg disabled:opacity-50 transition-all duration-300"
+                      className="flex-1 bg-gradient-to-r from-manjocarn-sage-green to-manjocarn-forest-green text-manjocarn-sand-beige py-4 rounded-xl font-semibold hover:shadow-nature-lg disabled:opacity-50 transition-all duration-300"
                       whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                       whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                     >
                       {isSubmitting ? (
                         <div className="flex items-center justify-center">
                           <motion.div
-                            className="w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-3"
+                            className="w-5 h-5 border-2 border-manjocarn-sand-beige border-t-transparent rounded-full mr-3"
                             animate={{ rotate: 360 }}
                             transition={{
                               duration: 1,
@@ -686,7 +694,7 @@ const ReservationModal = ({ onClose }) => {
                 </motion.div>
               )}
 
-              {/* Succès */}
+              {/* Succès avec meilleur contraste */}
               {isSuccess && (
                 <motion.div
                   key="success"
@@ -696,7 +704,7 @@ const ReservationModal = ({ onClose }) => {
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <motion.div
-                    className="w-20 h-20 bg-manjocarn-mint-green rounded-full flex items-center justify-center mx-auto mb-6 text-white text-4xl"
+                    className="w-20 h-20 bg-manjocarn-mint-green rounded-full flex items-center justify-center mx-auto mb-6 text-manjocarn-sand-beige text-4xl"
                     animate={{
                       scale: [1, 1.2, 1],
                       rotate: [0, 10, -10, 0],
@@ -716,7 +724,7 @@ const ReservationModal = ({ onClose }) => {
                     réservation.
                   </p>
 
-                  <div className="bg-manjocarn-sage-green/10 rounded-xl p-4 inline-block">
+                  <div className="bg-manjocarn-sage-green/10 rounded-xl p-4 inline-block border border-manjocarn-sage-green/30">
                     <p className="text-sm text-manjocarn-forest-green">
                       📞 <strong>+33 5 63 68 25 85</strong>
                     </p>

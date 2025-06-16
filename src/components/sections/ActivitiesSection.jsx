@@ -128,7 +128,7 @@ const ActivitiesSection = () => {
               onClick={() => setSelectedCategory(category.id)}
               className={`flex items-center px-3 md:px-6 py-2 md:py-3 rounded-xl md:rounded-2xl font-medium transition-all duration-300 text-sm md:text-base ${
                 selectedCategory === category.id
-                  ? "bg-manjocarn-forest-green text-white shadow-nature-lg"
+                  ? "bg-manjocarn-forest-green text-white shadow-nature-lg scale-105 transform border-2 border-manjocarn-forest-green"
                   : "bg-white text-manjocarn-dark-gray hover:bg-manjocarn-sage-green/20 border border-manjocarn-sage-green/30"
               }`}
             >

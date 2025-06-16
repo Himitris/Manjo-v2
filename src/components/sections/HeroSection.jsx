@@ -51,6 +51,7 @@ const navigationButtons = [
 const HeroSection = () => {
   const [hoveredButton, setHoveredButton] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
 
   const scrollToSection = (sectionId) => {
     document.getElementById(sectionId)?.scrollIntoView({
@@ -61,14 +62,14 @@ const HeroSection = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setIsMobile(window.innerWidth < 768);
-
-      const handleResize = () => {
+      const updateScreenSize = () => {
         setIsMobile(window.innerWidth < 768);
+        setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
       };
 
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
+      updateScreenSize();
+      window.addEventListener("resize", updateScreenSize);
+      return () => window.removeEventListener("resize", updateScreenSize);
     }
   }, []);
 
@@ -180,11 +181,11 @@ const HeroSection = () => {
           </motion.p>
         </motion.div>
 
-        {/* Navigation responsive */}
+        {/* Navigation responsive améliorée */}
         {isMobile ? (
-          // Version mobile simplifiée
+          // Version mobile - grille centrée avec labels en dessous
           <motion.div
-            className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full max-w-sm px-4"
+            className="grid grid-cols-2 gap-6 w-full max-w-sm px-4"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 2 }}
@@ -192,7 +193,7 @@ const HeroSection = () => {
             {navigationButtons.map((button, index) => (
               <motion.button
                 key={button.id}
-                className="group relative"
+                className="group relative flex flex-col items-center"
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{
@@ -204,19 +205,55 @@ const HeroSection = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection(button.id)}
               >
-                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white/90 backdrop-blur-sm border-2 border-manjocarn-sage-green/50 rounded-full flex items-center justify-center transition-all duration-300 group-hover:bg-manjocarn-sage-green group-hover:border-manjocarn-forest-green shadow-lg">
-                  <span className="text-xl sm:text-2xl group-hover:scale-110 transition-transform">
+                <div className="w-16 h-16 bg-white/90 backdrop-blur-sm border-2 border-manjocarn-sage-green/50 rounded-full flex items-center justify-center transition-all duration-300 group-hover:bg-manjocarn-sage-green group-hover:border-manjocarn-forest-green shadow-lg mb-2">
+                  <span className="text-2xl group-hover:scale-110 transition-transform">
                     {button.icon}
                   </span>
                 </div>
-                <div className="mt-2 text-xs text-manjocarn-dark-gray font-medium text-center">
+                <span className="text-xs text-manjocarn-forest-green font-medium text-center leading-tight px-1">
                   {button.label}
+                </span>
+              </motion.button>
+            ))}
+          </motion.div>
+        ) : isTablet ? (
+          // Version tablette - grille 3x3 avec plus d'espace
+          <motion.div
+            className="grid grid-cols-3 gap-8 w-full max-w-2xl px-8"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2 }}
+          >
+            {navigationButtons.map((button, index) => (
+              <motion.button
+                key={button.id}
+                className="group relative flex flex-col items-center"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{
+                  delay: 2 + index * 0.1,
+                  type: "spring",
+                  stiffness: 200,
+                }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollToSection(button.id)}
+                onMouseEnter={() => setHoveredButton(button.id)}
+                onMouseLeave={() => setHoveredButton(null)}
+              >
+                <div className="w-18 h-18 bg-white/90 backdrop-blur-sm border-2 border-manjocarn-sage-green/50 rounded-full flex items-center justify-center transition-all duration-300 group-hover:bg-manjocarn-sage-green group-hover:border-manjocarn-forest-green shadow-lg mb-3">
+                  <span className="text-2xl group-hover:scale-110 transition-transform">
+                    {button.icon}
+                  </span>
                 </div>
+                <span className="text-sm text-manjocarn-forest-green font-medium text-center">
+                  {button.label}
+                </span>
               </motion.button>
             ))}
           </motion.div>
         ) : (
-          // Version desktop
+          // Version desktop avec labels contrastés
           <div className="absolute inset-0 pointer-events-none">
             {navigationButtons.map((button, index) => (
               <motion.button
@@ -246,9 +283,9 @@ const HeroSection = () => {
                     </span>
                   </div>
 
-                  {/* Label animé */}
+                  {/* Label animé avec meilleur contraste */}
                   <motion.div
-                    className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap"
+                    className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 whitespace-nowrap"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{
                       opacity: hoveredButton === button.id ? 1 : 0,
@@ -256,7 +293,7 @@ const HeroSection = () => {
                     }}
                     transition={{ duration: 0.2 }}
                   >
-                    <span className="bg-manjocarn-forest-green text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg border border-manjocarn-sage-green/30">
+                    <span className="bg-manjocarn-forest-green text-manjocarn-sand-beige px-4 py-2 rounded-full text-sm font-medium shadow-lg border border-manjocarn-sage-green/30">
                       {button.label}
                     </span>
                   </motion.div>
@@ -279,7 +316,7 @@ const HeroSection = () => {
           </div>
         )}
 
-        {/* Indicateur de scroll */}
+        {/* Indicateur de scroll avec meilleur contraste */}
         <motion.div
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
           initial={{ opacity: 0 }}
@@ -290,9 +327,11 @@ const HeroSection = () => {
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="text-manjocarn-sage-green hover:text-manjocarn-forest-green transition-colors flex flex-col items-center"
+            className="text-manjocarn-forest-green hover:text-manjocarn-sage-green transition-colors flex flex-col items-center"
           >
-            <span className="text-sm mb-2 font-medium">Découvrir</span>
+            <span className="text-sm mb-2 font-medium bg-manjocarn-sand-beige/80 px-3 py-1 rounded-full shadow-sm">
+              Découvrir
+            </span>
             <ChevronDown size={32} />
           </motion.div>
         </motion.div>
