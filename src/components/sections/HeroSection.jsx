@@ -74,7 +74,10 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative h-screen overflow-hidden bg-manjocarn-background">
+    <section
+      id="hero"
+      className="relative h-screen overflow-hidden bg-manjocarn-background"
+    >
       {/* Fond dégradé naturel simplifié */}
       <div className="absolute inset-0 bg-gradient-to-br from-manjocarn-sage-green/20 via-manjocarn-mint-green/10 to-manjocarn-forest-green/20"></div>
 

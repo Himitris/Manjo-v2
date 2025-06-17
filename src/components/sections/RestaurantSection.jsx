@@ -20,8 +20,6 @@ const RestaurantSection = () => {
   const photos = Array.from({ length: 14 }, (_, i) => ({
     src: `/assets/photo/${i + 1}.jpg`,
     alt: `Photo Manjocarn ${i + 1}`,
-    liked: Math.random() > 0.6,
-    likes: Math.floor(Math.random() * 25) + 5,
   }));
 
   const handleImageLoad = (index) => {
@@ -260,15 +258,6 @@ const RestaurantSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-4">
                 <div className="text-white">
                   <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center">
-                      <Heart
-                        size={16}
-                        className={`mr-1 ${
-                          photo.liked ? "fill-red-500 text-red-500" : ""
-                        }`}
-                      />
-                      <span className="text-sm">{photo.likes}</span>
-                    </div>
                     <ZoomIn size={16} />
                   </div>
                 </div>
@@ -282,81 +271,69 @@ const RestaurantSection = () => {
           ))}
         </motion.div>
 
-        {/* Modal image */}
+        {/* Modal image amélioré */}
         {selectedImage && (
           <motion.div
-            className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedImage(null)}
           >
             <motion.div
-              className="relative max-w-5xl max-h-full w-full"
+              className="relative w-full h-full flex items-center justify-center"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
             >
-              {/* Image principale */}
-              <div className="relative">
+              {/* Bouton fermer - fixe en haut à droite */}
+              <motion.button
+                className="absolute top-4 right-4 z-[110] bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all duration-300 shadow-lg"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setSelectedImage(null)}
+              >
+                <X size={24} />
+              </motion.button>
+
+              {/* Flèches de navigation - à l'extérieur de l'image */}
+              {photos.length > 1 && (
+                <>
+                  <motion.button
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 z-[110] bg-black/70 hover:bg-black/90 text-white p-4 rounded-full transition-all duration-300 shadow-lg"
+                    whileHover={{ scale: 1.1, x: -5 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => navigateImage("prev")}
+                  >
+                    <ChevronLeft size={28} />
+                  </motion.button>
+                  <motion.button
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 z-[110] bg-black/70 hover:bg-black/90 text-white p-4 rounded-full transition-all duration-300 shadow-lg"
+                    whileHover={{ scale: 1.1, x: 5 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => navigateImage("next")}
+                  >
+                    <ChevronRight size={28} />
+                  </motion.button>
+                </>
+              )}
+
+              {/* Conteneur de l'image centrée */}
+              <div
+                className="relative max-w-full max-h-full flex items-center justify-center"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <img
                   src={selectedImage.src}
                   alt={selectedImage.alt}
-                  className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+                  className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
                 />
-
-                {/* Contrôles de navigation */}
-                {photos.length > 1 && (
-                  <>
-                    <button
-                      className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300"
-                      onClick={() => navigateImage("prev")}
-                    >
-                      <ChevronLeft size={24} />
-                    </button>
-                    <button
-                      className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300"
-                      onClick={() => navigateImage("next")}
-                    >
-                      <ChevronRight size={24} />
-                    </button>
-                  </>
-                )}
               </div>
 
-              {/* Barre d'outils */}
-              <div className="absolute top-4 right-4 flex space-x-2">
-                <motion.button
-                  className="bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={() => setSelectedImage(null)}
-                >
-                  <X size={20} />
-                </motion.button>
-              </div>
-
-              {/* Informations sur l'image */}
-              <div className="absolute bottom-4 left-4 right-4 bg-black/60 text-white p-4 rounded-lg backdrop-blur-sm">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-semibold mb-1">{selectedImage.alt}</h3>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center">
-                      <Heart
-                        size={16}
-                        className={`mr-1 ${
-                          selectedImage.liked ? "fill-red-500 text-red-500" : ""
-                        }`}
-                      />
-                      <span>{selectedImage.likes}</span>
-                    </div>
-                    <span className="text-sm opacity-80">
-                      {currentImageIndex + 1} / {photos.length}
-                    </span>
-                  </div>
+              {/* Compteur simple en bas au centre */}
+              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-[110]">
+                <div className="bg-black/80 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm">
+                  {currentImageIndex + 1} / {photos.length}
                 </div>
               </div>
             </motion.div>

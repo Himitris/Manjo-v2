@@ -10,7 +10,7 @@ import EventsSection from "./components/sections/EventsSection";
 import InstagramSection from "./components/sections/InstagramSection";
 import PaymentSection from "./components/sections/PaymentSection";
 import ContactSection from "./components/sections/ContactSection";
-import ScrollIndicator from "./components/layout/ScrollIndicator";
+import ModernScrollIndicator from "./components/layout/ModernScrollIndicator";
 import ScrollToTop from "./components/ui/ScrollToTop";
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
       animate={{ opacity: isLoaded ? 1 : 0 }}
       transition={{ duration: 0.8 }}
     >
-      <ScrollIndicator />
+      <ModernScrollIndicator />
       <ScrollToTop />
 
       {/* Hero Section avec navigation intégrée */}

@@ -229,7 +229,7 @@ const MenuSection = () => {
                   </div>
                 </div>
 
-                <div className="bg-manjocarn-forest-green text-white px-3 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl font-bold text-base md:text-lg ml-2">
+                <div className="bg-manjocarn-forest-green px-3 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl font-bold text-base md:text-lg ml-2">
                   {item.price}€
                 </div>
               </div>

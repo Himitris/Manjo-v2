@@ -112,13 +112,6 @@ const Section = ({
       >
         {children}
       </div>
-
-      {/* Indicateur de section (pour le debug) */}
-      {process.env.NODE_ENV === "development" && id && (
-        <div className="absolute top-4 right-4 bg-manjocarn-forest-green/80 text-manjocarn-sand-beige text-xs px-2 py-1 rounded z-50">
-          {id}
-        </div>
-      )}
     </motion.section>
   );
 };
