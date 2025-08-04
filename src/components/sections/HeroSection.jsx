@@ -52,6 +52,7 @@ const HeroSection = () => {
   const [hoveredButton, setHoveredButton] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
+  const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
 
   const scrollToSection = (sectionId) => {
     document.getElementById(sectionId)?.scrollIntoView({
@@ -63,8 +64,12 @@ const HeroSection = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const updateScreenSize = () => {
-        setIsMobile(window.innerWidth < 768);
-        setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        setScreenSize({ width, height });
+        setIsMobile(width < 768);
+        setIsTablet(width >= 768 && width < 1200);
       };
 
       updateScreenSize();
@@ -73,10 +78,71 @@ const HeroSection = () => {
     }
   }, []);
 
+  // Fonction pour vérifier les collisions et ajuster les positions
+  const getAdjustedPositions = () => {
+    if (isMobile || isTablet) return [];
+
+    const minDistance = 120; // Distance minimum entre les éléments
+    const adjustedButtons = [...navigationButtons];
+
+    // Convertir les pourcentages en pixels pour les calculs
+    const convertToPixels = (pos) => ({
+      x: pos.left
+        ? (parseFloat(pos.left) / 100) * screenSize.width
+        : (1 - parseFloat(pos.right) / 100) * screenSize.width,
+      y: (parseFloat(pos.top) / 100) * screenSize.height,
+    });
+
+    // Vérifier et ajuster les positions pour éviter les superpositions
+    for (let i = 0; i < adjustedButtons.length; i++) {
+      const currentPos = convertToPixels(adjustedButtons[i].position);
+
+      for (let j = i + 1; j < adjustedButtons.length; j++) {
+        const otherPos = convertToPixels(adjustedButtons[j].position);
+        const distance = Math.sqrt(
+          Math.pow(currentPos.x - otherPos.x, 2) +
+            Math.pow(currentPos.y - otherPos.y, 2)
+        );
+
+        if (distance < minDistance) {
+          // Ajuster la position du deuxième élément
+          const angle = Math.atan2(
+            otherPos.y - currentPos.y,
+            otherPos.x - currentPos.x
+          );
+          const newX = currentPos.x + Math.cos(angle) * minDistance;
+          const newY = currentPos.y + Math.sin(angle) * minDistance;
+
+          // Convertir back en pourcentages et s'assurer que c'est dans les limites
+          const newLeftPercent = Math.max(
+            5,
+            Math.min(85, (newX / screenSize.width) * 100)
+          );
+          const newTopPercent = Math.max(
+            15,
+            Math.min(80, (newY / screenSize.height) * 100)
+          );
+
+          adjustedButtons[j] = {
+            ...adjustedButtons[j],
+            position: {
+              top: `${newTopPercent}%`,
+              left: `${newLeftPercent}%`,
+            },
+          };
+        }
+      }
+    }
+
+    return adjustedButtons;
+  };
+
+  const adjustedButtons = getAdjustedPositions();
+
   return (
     <section
       id="hero"
-      className="relative h-screen overflow-hidden bg-manjocarn-background"
+      className="relative min-h-screen overflow-hidden bg-manjocarn-background"
     >
       {/* Fond dégradé naturel simplifié */}
       <div className="absolute inset-0 bg-gradient-to-br from-manjocarn-sage-green/20 via-manjocarn-mint-green/10 to-manjocarn-forest-green/20"></div>
@@ -93,52 +159,6 @@ const HeroSection = () => {
         ></div>
       </div>
 
-      {/* Éléments décoratifs naturels simples */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
-        <motion.div
-          className="absolute top-20 left-20 text-manjocarn-mint-green text-4xl"
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 10, 0],
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        >
-          🍃
-        </motion.div>
-
-        <motion.div
-          className="absolute top-32 right-16 text-manjocarn-sage-green text-3xl"
-          animate={{
-            y: [0, -15, 0],
-            x: [0, 10, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        >
-          🌿
-        </motion.div>
-
-        <motion.div
-          className="absolute bottom-40 left-32 text-manjocarn-forest-green text-5xl"
-          animate={{
-            y: [0, -25, 0],
-            rotate: [0, 15, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 4,
-          }}
-        >
-          🌱
-        </motion.div>
-      </div>
-
       {/* Contenu principal */}
       <div className="relative z-10 h-full flex flex-col justify-center items-center text-manjocarn-forest-green px-4">
         {/* Titre principal */}
@@ -148,7 +168,7 @@ const HeroSection = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
-          <h1 className="font-cabin-sketch text-3xl sm:text-5xl md:text-8xl lg:text-9xl text-manjocarn-forest-green mb-3 md:mb-4 drop-shadow-lg leading-none">
+          <h1 className="font-cabin-sketch text-3xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl text-manjocarn-forest-green mb-3 md:mb-4 drop-shadow-lg leading-none">
             {"Manjocarn".split("").map((letter, index) => (
               <motion.span
                 key={index}
@@ -166,7 +186,7 @@ const HeroSection = () => {
           </h1>
 
           <motion.p
-            className="font-amatic text-lg sm:text-xl md:text-3xl text-manjocarn-sage-green tracking-wider drop-shadow-sm"
+            className="font-amatic text-lg sm:text-xl md:text-2xl lg:text-3xl text-manjocarn-sage-green tracking-wider drop-shadow-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
@@ -175,7 +195,7 @@ const HeroSection = () => {
           </motion.p>
 
           <motion.p
-            className="font-poppins text-sm sm:text-sm md:text-lg text-manjocarn-dark-gray mt-2 md:mt-4 max-w-2xl mx-auto"
+            className="font-poppins text-sm sm:text-base md:text-lg text-manjocarn-dark-gray mt-2 md:mt-4 max-w-2xl mx-auto px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5 }}
@@ -186,9 +206,9 @@ const HeroSection = () => {
 
         {/* Navigation responsive améliorée */}
         {isMobile ? (
-          // Version mobile - grille compacte avec labels visibles
+          // Version mobile - grille compacte 2x4 pour éviter les superpositions
           <motion.div
-            className="grid grid-cols-2 gap-3 w-full max-w-xs px-4"
+            className="grid grid-cols-2 gap-3 w-full max-w-sm px-4"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 2 }}
@@ -196,7 +216,7 @@ const HeroSection = () => {
             {navigationButtons.map((button, index) => (
               <motion.button
                 key={button.id}
-                className="group relative flex flex-col items-center p-3 bg-white/90 backdrop-blur-sm border-2 border-manjocarn-sage-green/50 rounded-xl transition-all duration-300 hover:bg-manjocarn-sage-green hover:border-manjocarn-forest-green shadow-lg"
+                className="group relative flex flex-col items-center p-3 bg-white/90 backdrop-blur-sm border-2 border-manjocarn-sage-green/50 rounded-xl transition-all duration-300 hover:bg-manjocarn-sage-green hover:border-manjocarn-forest-green shadow-lg min-h-[80px]"
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{
@@ -218,17 +238,17 @@ const HeroSection = () => {
             ))}
           </motion.div>
         ) : isTablet ? (
-          // Version tablette - grille 3x3 avec labels visibles
+          // Version tablette - grille 3 colonnes avec meilleur espacement
           <motion.div
-            className="grid grid-cols-3 gap-6 w-full max-w-2xl px-8"
+            className="grid grid-cols-3 gap-6 w-full max-w-3xl px-8"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 2 }}
           >
-            {navigationButtons.map((button, index) => (
+            {navigationButtons.slice(0, 6).map((button, index) => (
               <motion.button
                 key={button.id}
-                className="group relative flex flex-col items-center p-6 bg-white/90 backdrop-blur-sm border-2 border-manjocarn-sage-green/50 rounded-2xl transition-all duration-300 hover:bg-manjocarn-sage-green hover:border-manjocarn-forest-green shadow-lg"
+                className="group relative flex flex-col items-center p-6 bg-white/90 backdrop-blur-sm border-2 border-manjocarn-sage-green/50 rounded-2xl transition-all duration-300 hover:bg-manjocarn-sage-green hover:border-manjocarn-forest-green shadow-lg min-h-[120px]"
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{
@@ -250,11 +270,38 @@ const HeroSection = () => {
                 </span>
               </motion.button>
             ))}
+            {/* Bouton supplémentaire pour les tablettes */}
+            {navigationButtons.slice(6).map((button, index) => (
+              <motion.button
+                key={button.id}
+                className="group relative flex flex-col items-center p-4 bg-white/90 backdrop-blur-sm border-2 border-manjocarn-sage-green/50 rounded-2xl transition-all duration-300 hover:bg-manjocarn-sage-green hover:border-manjocarn-forest-green shadow-lg min-h-[100px] col-start-2"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{
+                  delay: 2.6 + index * 0.1,
+                  type: "spring",
+                  stiffness: 200,
+                }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollToSection(button.id)}
+              >
+                <span className="text-2xl mb-2 group-hover:scale-110 transition-transform">
+                  {button.icon}
+                </span>
+                <span className="text-sm font-semibold text-manjocarn-forest-green group-hover:text-manjocarn-sand-beige text-center">
+                  {button.label}
+                </span>
+              </motion.button>
+            ))}
           </motion.div>
         ) : (
-          // Version desktop avec labels toujours visibles - effet de survol limité au cercle
+          // Version desktop avec positions ajustées pour éviter les superpositions
           <div className="absolute inset-0 pointer-events-none">
-            {navigationButtons.map((button, index) => (
+            {(adjustedButtons.length > 0
+              ? adjustedButtons
+              : navigationButtons
+            ).map((button, index) => (
               <motion.div
                 key={button.id}
                 className="absolute pointer-events-auto group flex flex-col items-center"
@@ -270,9 +317,9 @@ const HeroSection = () => {
                 onMouseEnter={() => setHoveredButton(button.id)}
                 onMouseLeave={() => setHoveredButton(null)}
               >
-                {/* Bouton principal - effet de survol isolé */}
+                {/* Bouton principal avec zone de sécurité */}
                 <motion.div
-                  className="relative w-16 h-16 md:w-20 md:h-20 bg-white/90 backdrop-blur-sm border-2 border-manjocarn-sage-green/50 rounded-full flex items-center justify-center transition-all duration-300 group-hover:bg-manjocarn-sage-green group-hover:border-manjocarn-forest-green shadow-lg mb-3 cursor-pointer"
+                  className="relative w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-white/90 backdrop-blur-sm border-2 border-manjocarn-sage-green/50 rounded-full flex items-center justify-center transition-all duration-300 group-hover:bg-manjocarn-sage-green group-hover:border-manjocarn-forest-green shadow-lg mb-3 cursor-pointer"
                   whileHover={{
                     scale: 1.1,
                     transition: { type: "spring", stiffness: 400 },
@@ -283,7 +330,7 @@ const HeroSection = () => {
                     {button.icon}
                   </span>
 
-                  {/* Effet de pulsation uniquement sur le cercle */}
+                  {/* Effet de pulsation */}
                   <motion.div
                     className="absolute inset-0 border-2 border-manjocarn-mint-green/70 rounded-full"
                     animate={{
@@ -297,8 +344,16 @@ const HeroSection = () => {
                   />
                 </motion.div>
 
-                {/* Label toujours visible - séparé du cercle */}
-                <div className="bg-manjocarn-forest-green text-manjocarn-sand-beige px-4 py-2 rounded-full text-sm font-semibold shadow-lg border border-manjocarn-sage-green/30 whitespace-nowrap group-hover:bg-manjocarn-deep-forest group-hover:text-manjocarn-golden-yellow transition-all duration-300">
+                {/* Label avec meilleur contraste et positionnement */}
+                <div
+                  className="bg-manjocarn-forest-green text-manjocarn-sand-beige px-4 py-2 rounded-full text-sm font-semibold shadow-lg border border-manjocarn-sage-green/30 whitespace-nowrap group-hover:bg-manjocarn-deep-forest group-hover:text-manjocarn-golden-yellow transition-all duration-300 min-w-max"
+                  style={{
+                    // S'assurer que le label ne dépasse pas des bords
+                    transform: button.position.right
+                      ? "translateX(-50%)"
+                      : "translateX(-50%)",
+                  }}
+                >
                   {button.label}
                 </div>
               </motion.div>
@@ -306,9 +361,9 @@ const HeroSection = () => {
           </div>
         )}
 
-        {/* Indicateur de scroll avec meilleur contraste */}
+        {/* Indicateur de scroll */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+          className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 3 }}
@@ -319,10 +374,10 @@ const HeroSection = () => {
             transition={{ duration: 1.5, repeat: Infinity }}
             className="text-manjocarn-forest-green hover:text-manjocarn-sage-green transition-colors flex flex-col items-center"
           >
-            <span className="text-sm mb-2 font-medium bg-manjocarn-sand-beige/80 px-3 py-1 rounded-full shadow-sm">
+            <span className="text-xs md:text-sm mb-2 font-medium bg-manjocarn-sand-beige/80 px-3 py-1 rounded-full shadow-sm">
               Découvrir
             </span>
-            <ChevronDown size={32} />
+            <ChevronDown size={28} className="md:w-8 md:h-8" />
           </motion.div>
         </motion.div>
       </div>

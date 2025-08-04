@@ -121,36 +121,39 @@ const MenuSection = () => {
   const [activeCategory, setActiveCategory] = useState("plats");
 
   return (
-    <Section id="menu" className="py-12 md:py-20">
-      <div className="max-w-7xl mx-auto px-4">
-        {/* Header */}
+    <Section id="menu" className="py-8 md:py-16 lg:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header responsive */}
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <div className="inline-flex items-center mb-6 bg-white px-6 md:px-8 py-3 md:py-4 rounded-full shadow-md">
-            <ChefHat className="mr-3 text-manjocarn-forest-green" size={28} />
-            <span className="text-base md:text-lg font-semibold text-manjocarn-dark-gray">
+          <div className="inline-flex items-center mb-4 md:mb-6 bg-white px-4 md:px-8 py-3 md:py-4 rounded-full shadow-md">
+            <ChefHat
+              className="mr-2 md:mr-3 text-manjocarn-forest-green"
+              size={24}
+            />
+            <span className="text-sm md:text-lg font-semibold text-manjocarn-dark-gray">
               Notre Cuisine
             </span>
           </div>
 
-          <h2 className="text-3xl md:text-5xl lg:text-6xl text-gradient-nature mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gradient-nature mb-4 md:mb-6 px-4">
             La Carte du Manjocarn
           </h2>
 
-          <p className="mt-6 text-base md:text-lg text-manjocarn-dark-gray max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-4 md:mt-6 text-sm md:text-lg text-manjocarn-dark-gray max-w-2xl mx-auto leading-relaxed px-4">
             Découvrez nos spécialités du terroir, préparées avec passion et des
             produits frais du coin.
           </p>
         </motion.div>
 
-        {/* Navigation catégories */}
+        {/* Navigation catégories responsive */}
         <motion.div
-          className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-16"
+          className="menu-categories"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -164,26 +167,21 @@ const MenuSection = () => {
               <motion.button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex items-center px-4 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-semibold transition-all duration-300 text-sm md:text-base ${
+                className={`menu-category-button ${
                   isActive
-                    ? "shadow-nature-lg scale-105"
-                    : "bg-white text-manjocarn-dark-gray hover:bg-manjocarn-sage-green/20 border border-manjocarn-sage-green/30"
-                }`}
-                style={
-                  isActive
-                    ? {
-                        backgroundColor: "var(--manjocarn-forest-green)",
-                        color: "var(--manjocarn-sand-beige)",
-                        borderColor: "var(--manjocarn-forest-green)",
-                      }
-                    : {}
-                }
+                    ? "bg-manjocarn-forest-green text-manjocarn-sand-beige border-manjocarn-forest-green shadow-nature-lg scale-105"
+                    : "bg-white text-manjocarn-dark-gray hover:bg-manjocarn-sage-green/20 border-manjocarn-sage-green/30"
+                } border-2 transition-all duration-300`}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
+                aria-label={`Voir la catégorie ${category.label}`}
               >
-                <span className="text-lg md:text-xl mr-2">{category.icon}</span>
-                {category.label}
-                <span className="ml-2 text-xs bg-manjocarn-golden-yellow/40 px-2 py-1 rounded-full">
+                <span className="text-base md:text-lg mr-1 md:mr-2">
+                  {category.icon}
+                </span>
+                <span className="hidden sm:inline">{category.label}</span>
+                <span className="sm:hidden">{category.label.slice(0, 4)}</span>
+                <span className="ml-1 md:ml-2 text-xs bg-manjocarn-golden-yellow/40 px-1.5 md:px-2 py-0.5 md:py-1 rounded-full">
                   {itemCount}
                 </span>
               </motion.button>
@@ -191,9 +189,9 @@ const MenuSection = () => {
           })}
         </motion.div>
 
-        {/* Grille des plats */}
+        {/* Grille des plats responsive */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8"
+          className="responsive-grid-menu"
           key={activeCategory}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -202,7 +200,7 @@ const MenuSection = () => {
           {menuData[activeCategory]?.map((item, index) => (
             <motion.div
               key={index}
-              className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 hover:shadow-nature-lg transition-all duration-300 relative overflow-hidden"
+              className="menu-item bg-white rounded-xl md:rounded-2xl p-4 md:p-6 hover:shadow-nature-lg transition-all duration-300 relative overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
@@ -210,71 +208,82 @@ const MenuSection = () => {
             >
               {/* Badge populaire */}
               {item.popular && (
-                <div className="absolute top-3 md:top-4 right-3 md:right-4 bg-manjocarn-sunset-orange text-white text-xs px-2 md:px-3 py-1 rounded-full font-bold flex items-center">
-                  <Star size={10} className="mr-1" fill="currentColor" />
-                  Popular
+                <div className="absolute top-2 md:top-4 right-2 md:right-4 bg-manjocarn-sunset-orange text-white text-xs px-2 md:px-3 py-1 rounded-full font-bold flex items-center">
+                  <Star size={8} className="mr-1" fill="currentColor" />
+                  <span className="hidden sm:inline">Popular</span>
+                  <span className="sm:hidden">★</span>
                 </div>
               )}
 
-              {/* Header */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center flex-1">
-                  <span className="text-2xl md:text-4xl mr-3 md:mr-4">
+              {/* Header responsive */}
+              <div className="menu-item-header flex flex-col sm:flex-row sm:items-start justify-between mb-3 md:mb-4">
+                <div className="flex items-center flex-1 mb-2 sm:mb-0">
+                  <span className="text-xl md:text-3xl lg:text-4xl mr-2 md:mr-4 flex-shrink-0">
                     {item.icon}
                   </span>
-                  <div className="flex-1">
-                    <h3 className="text-lg md:text-xl font-bold text-manjocarn-dark-gray mb-1">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base md:text-xl font-bold text-manjocarn-dark-gray mb-1 truncate">
                       {item.name}
                     </h3>
                   </div>
                 </div>
 
-                <div className="bg-manjocarn-forest-green px-3 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl font-bold text-base md:text-lg ml-2">
+                <div className="menu-item-price bg-manjocarn-forest-green text-manjocarn-sand-beige px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl font-bold text-sm md:text-lg whitespace-nowrap">
                   {item.price}€
                 </div>
               </div>
 
               {/* Description */}
-              <p className="text-manjocarn-dark-gray/80 text-sm md:text-base leading-relaxed mb-4 min-h-[2.5rem] md:min-h-[3rem]">
+              <p className="text-manjocarn-dark-gray/80 text-xs md:text-base leading-relaxed mb-3 md:mb-4 min-h-[2rem] md:min-h-[3rem]">
                 {item.description}
               </p>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2">
-                {item.tags.map((tag, tagIndex) => (
-                  <span
-                    key={tagIndex}
-                    className="bg-manjocarn-mint-green/30 text-manjocarn-forest-green text-xs px-2 md:px-3 py-1 rounded-full font-medium border border-manjocarn-sage-green/30"
-                  >
-                    {tag}
+              {/* Tags responsive */}
+              <div className="menu-item-tags flex flex-wrap gap-1 md:gap-2 mb-2">
+                {item.tags
+                  .slice(0, window.innerWidth < 640 ? 2 : 3)
+                  .map((tag, tagIndex) => (
+                    <span
+                      key={tagIndex}
+                      className="menu-item-tag bg-manjocarn-mint-green/30 text-manjocarn-forest-green text-xs px-2 md:px-3 py-1 rounded-full font-medium border border-manjocarn-sage-green/30"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                {item.tags.length > (window.innerWidth < 640 ? 2 : 3) && (
+                  <span className="menu-item-tag bg-manjocarn-sage-green/20 text-manjocarn-forest-green text-xs px-2 md:px-3 py-1 rounded-full font-medium border border-manjocarn-sage-green/30">
+                    +{item.tags.length - (window.innerWidth < 640 ? 2 : 3)}
                   </span>
-                ))}
+                )}
               </div>
 
               {/* Recommandation chef */}
               {item.popular && (
-                <div className="mt-4 flex items-center text-manjocarn-sunset-orange text-xs md:text-sm font-medium">
-                  <Utensils size={14} className="mr-2" />
-                  Recommandé par le chef
+                <div className="mt-3 md:mt-4 flex items-center text-manjocarn-sunset-orange text-xs md:text-sm font-medium">
+                  <Utensils size={12} className="mr-1 md:mr-2 flex-shrink-0" />
+                  <span className="hidden sm:inline">
+                    Recommandé par le chef
+                  </span>
+                  <span className="sm:hidden">Recommandé</span>
                 </div>
               )}
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Note informative */}
+        {/* Note informative responsive */}
         <motion.div
-          className="mt-12 md:mt-16 text-center bg-white rounded-xl md:rounded-2xl p-6 md:p-8 max-w-4xl mx-auto shadow-md"
+          className="mt-8 md:mt-16 text-center bg-white rounded-xl md:rounded-2xl p-4 md:p-8 max-w-4xl mx-auto shadow-md"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.5 }}
         >
-          <div className="text-3xl md:text-4xl mb-4">👨‍🍳</div>
-          <h3 className="text-xl md:text-2xl text-manjocarn-forest-green mb-4 font-bold">
+          <div className="text-2xl md:text-4xl mb-3 md:mb-4">👨‍🍳</div>
+          <h3 className="text-lg md:text-2xl text-manjocarn-forest-green mb-3 md:mb-4 font-bold">
             Cuisine du Terroir
           </h3>
-          <p className="text-manjocarn-dark-gray leading-relaxed text-sm md:text-base">
+          <p className="text-manjocarn-dark-gray leading-relaxed text-sm md:text-base px-2">
             Tous nos plats sont préparés avec des{" "}
             <span className="font-semibold text-manjocarn-forest-green">
               produits frais du coin
@@ -284,9 +293,21 @@ const MenuSection = () => {
             guinguette.
           </p>
 
-          <div className="mt-6 inline-flex items-center text-manjocarn-forest-green font-medium text-sm md:text-base">
-            <span className="mr-2">🌿</span>
-            Produits locaux • Cuisine maison • Selon saison
+          <div className="mt-4 md:mt-6 inline-flex items-center text-manjocarn-forest-green font-medium text-xs md:text-base flex-wrap justify-center gap-2">
+            <span className="flex items-center">
+              <span className="mr-1">🌿</span>
+              Produits locaux
+            </span>
+            <span className="hidden sm:inline">•</span>
+            <span className="flex items-center">
+              <span className="mr-1 sm:mr-0">🏠</span>
+              <span className="sm:ml-1">Cuisine maison</span>
+            </span>
+            <span className="hidden sm:inline">•</span>
+            <span className="flex items-center">
+              <span className="mr-1 sm:mr-0">🌱</span>
+              <span className="sm:ml-1">Selon saison</span>
+            </span>
           </div>
         </motion.div>
       </div>

@@ -51,7 +51,7 @@ const ModernScrollIndicator = () => {
       setIsScrollingUp(currentScrollY < lastScrollY && currentScrollY > 200);
       setLastScrollY(currentScrollY);
 
-      // Fermer le menu mobile lors du scroll
+      // Fermer le menu mobile lors du scroll significatif
       if (showMobileMenu && Math.abs(currentScrollY - lastScrollY) > 50) {
         setShowMobileMenu(false);
       }
@@ -100,114 +100,125 @@ const ModernScrollIndicator = () => {
   return (
     <>
       {/* Barre de progression en haut */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-manjocarn-sage-green/20 z-40">
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-manjocarn-sage-green/20 z-40"
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 0.3 }}
+      >
         <motion.div
           className="h-full bg-gradient-to-r from-manjocarn-sage-green via-manjocarn-golden-yellow to-manjocarn-sunset-orange origin-left shadow-sm"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: scrollProgress }}
           transition={{ duration: 0.1 }}
         />
-      </div>
+      </motion.div>
 
       {isMobile ? (
-        /* VERSION MOBILE - Barre compacte en haut */
+        /* VERSION MOBILE - Interface améliorée */
         <>
-          {/* Barre de navigation mobile en haut */}
+          {/* Barre de navigation mobile compacte */}
           <AnimatePresence>
             {!showMobileMenu && (
               <motion.div
-                className="fixed top-4 left-1/2 transform -translate-x-1/2 z-30 bg-manjocarn-forest-green/95 backdrop-blur-sm text-manjocarn-sand-beige rounded-full px-4 py-2 shadow-nature-lg border border-manjocarn-sage-green/30 flex items-center gap-3"
+                className="fixed top-4 left-1/2 transform -translate-x-1/2 z-30 max-w-[calc(100vw-2rem)]"
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -50 }}
                 transition={{ duration: 0.3 }}
               >
-                <span className="text-lg">{currentSection?.icon}</span>
-                <span className="text-sm font-medium">
-                  {currentSection?.label}
-                </span>
-                <div className="w-px h-4 bg-manjocarn-sage-green/50 mx-1"></div>
-                <span className="text-xs">
-                  {Math.round(scrollProgress * 100)}%
-                </span>
-                <button
-                  onClick={() => setShowMobileMenu(true)}
-                  className="ml-2 p-1 hover:bg-manjocarn-sage-green/30 rounded-full transition-colors"
-                >
-                  <Menu size={16} />
-                </button>
+                <div className="mobile-scroll-nav">
+                  <span className="mobile-scroll-icon">
+                    {currentSection?.icon}
+                  </span>
+                  <span className="mobile-scroll-label">
+                    {currentSection?.label}
+                  </span>
+                  <div className="w-px h-4 bg-manjocarn-sage-green/50 mx-1"></div>
+                  <span className="mobile-scroll-progress">
+                    {Math.round(scrollProgress * 100)}%
+                  </span>
+                  <button
+                    onClick={() => setShowMobileMenu(true)}
+                    className="mobile-scroll-menu-button"
+                    aria-label="Ouvrir le menu de navigation"
+                  >
+                    <Menu size={16} />
+                  </button>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Bouton retour en haut simple */}
+          {/* Bouton retour en haut */}
           <AnimatePresence>
             {!showMobileMenu && isScrollingUp && (
               <motion.button
-                className="fixed bottom-6 right-6 z-30 w-12 h-12 bg-manjocarn-forest-green text-manjocarn-sand-beige rounded-full shadow-nature-lg border border-manjocarn-sage-green/30 flex items-center justify-center transition-all duration-300"
+                className="mobile-scroll-to-top"
                 onClick={scrollToTop}
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0, opacity: 0 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                aria-label="Retour en haut"
               >
                 <ChevronUp size={20} />
               </motion.button>
             )}
           </AnimatePresence>
 
-          {/* Menu mobile compact - dropdown */}
+          {/* Menu mobile dropdown amélioré */}
           <AnimatePresence>
             {showMobileMenu && (
               <motion.div
-                className="fixed top-16 left-1/2 transform -translate-x-1/2 z-40 bg-manjocarn-deep-forest/95 backdrop-blur-md rounded-2xl shadow-nature-lg border border-manjocarn-sage-green/30 p-4 max-w-xs w-full mx-4"
+                className="mobile-scroll-dropdown"
                 initial={{ opacity: 0, y: -10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
               >
-                {/* Header compact */}
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-manjocarn-sand-beige font-medium text-sm">
+                {/* Header */}
+                <div className="mobile-dropdown-header">
+                  <span className="mobile-dropdown-title">
                     Navigation ({Math.round(scrollProgress * 100)}%)
                   </span>
                   <button
                     onClick={() => setShowMobileMenu(false)}
-                    className="w-6 h-6 bg-manjocarn-sage-green/20 hover:bg-manjocarn-sage-green/30 text-manjocarn-sand-beige rounded-full flex items-center justify-center transition-colors"
+                    className="mobile-dropdown-close"
+                    aria-label="Fermer le menu"
                   >
                     <X size={14} />
                   </button>
                 </div>
 
-                {/* Barre de progression compacte */}
-                <div className="mb-4">
-                  <div className="w-full bg-manjocarn-sage-green/20 rounded-full h-1">
-                    <div
-                      className="h-1 bg-gradient-to-r from-manjocarn-golden-yellow to-manjocarn-sunset-orange rounded-full transition-all duration-300"
-                      style={{ width: `${scrollProgress * 100}%` }}
-                    />
-                  </div>
+                {/* Barre de progression */}
+                <div className="mobile-dropdown-progress-bar">
+                  <div
+                    className="mobile-dropdown-progress-fill"
+                    style={{ width: `${scrollProgress * 100}%` }}
+                  />
                 </div>
 
-                {/* Liste des sections compacte */}
-                <div className="grid grid-cols-3 gap-2 mb-4">
+                {/* Sections */}
+                <div className="mobile-dropdown-sections">
                   {SECTIONS.map((section, index) => (
                     <motion.button
                       key={section.id}
                       onClick={() => scrollToSection(section.id)}
-                      className={`flex flex-col items-center p-2 rounded-lg transition-all duration-300 ${
-                        activeSection === section.id
-                          ? "bg-manjocarn-sage-green/30 text-manjocarn-golden-yellow"
-                          : "bg-manjocarn-sand-beige/10 hover:bg-manjocarn-sand-beige/20 text-manjocarn-sand-beige/80"
+                      className={`mobile-dropdown-section ${
+                        activeSection === section.id ? "active" : ""
                       }`}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: index * 0.02 }}
                       whileTap={{ scale: 0.95 }}
+                      aria-label={`Aller à la section ${section.label}`}
                     >
-                      <span className="text-lg mb-1">{section.icon}</span>
-                      <span className="text-xs font-medium text-center leading-tight">
+                      <span className="mobile-dropdown-section-icon">
+                        {section.icon}
+                      </span>
+                      <span className="mobile-dropdown-section-label">
                         {section.label}
                       </span>
                     </motion.button>
@@ -215,28 +226,43 @@ const ModernScrollIndicator = () => {
                 </div>
 
                 {/* Actions rapides */}
-                <div className="flex gap-2">
+                <div className="mobile-dropdown-actions">
                   <button
                     onClick={scrollToTop}
-                    className="flex-1 bg-manjocarn-sage-green/20 hover:bg-manjocarn-sage-green/30 text-manjocarn-sand-beige py-2 rounded-lg flex items-center justify-center transition-colors text-sm"
+                    className="mobile-dropdown-action"
+                    aria-label="Aller en haut de page"
                   >
-                    <ChevronUp size={14} className="mr-1" />
+                    <ChevronUp size={14} />
                     Haut
                   </button>
                   <button
                     onClick={scrollToBottom}
-                    className="flex-1 bg-manjocarn-sage-green/20 hover:bg-manjocarn-sage-green/30 text-manjocarn-sand-beige py-2 rounded-lg flex items-center justify-center transition-colors text-sm"
+                    className="mobile-dropdown-action"
+                    aria-label="Aller en bas de page"
                   >
-                    <ChevronDown size={14} className="mr-1" />
+                    <ChevronDown size={14} />
                     Bas
                   </button>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* Overlay pour fermer le menu */}
+          <AnimatePresence>
+            {showMobileMenu && (
+              <motion.div
+                className="fixed inset-0 bg-black/20 z-25"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setShowMobileMenu(false)}
+              />
+            )}
+          </AnimatePresence>
         </>
       ) : (
-        /* VERSION DESKTOP - Indicateur latéral */
+        /* VERSION DESKTOP - Indicateur latéral optimisé */
         <>
           {/* Indicateur de sections à droite */}
           <motion.div
@@ -252,6 +278,7 @@ const ModernScrollIndicator = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               title="Retour en haut"
+              aria-label="Retour en haut de page"
             >
               <ChevronUp size={16} />
             </motion.button>
@@ -274,6 +301,7 @@ const ModernScrollIndicator = () => {
                       whileHover={{ scale: isActive ? 1.1 : 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       title={section.label}
+                      aria-label={`Naviguer vers ${section.label}`}
                     >
                       <span className="text-sm">{section.icon}</span>
 
@@ -308,6 +336,7 @@ const ModernScrollIndicator = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               title="Aller en bas"
+              aria-label="Aller en bas de page"
             >
               <ChevronDown size={16} />
             </motion.button>

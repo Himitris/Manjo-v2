@@ -294,8 +294,6 @@ button:hover .bg-white {
   100% { background-position: 200% 0; }
 }
 
-
-
 .text-gradient-nature {
   background: linear-gradient(135deg, var(--manjocarn-forest-green), var(--manjocarn-sage-green));
   -webkit-background-clip: text;
@@ -324,7 +322,815 @@ button:hover .bg-white {
   box-shadow: 0 2px 8px rgba(233, 156, 90, 0.1);
 }
 
-/* Responsive improvements */
+/* ===== CORRECTIONS HERO SECTION ===== */
+@media (max-width: 767px) {
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 4rem) !important;
+    line-height: 0.9;
+    margin-bottom: 1rem;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 4vw, 1.5rem) !important;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-description {
+    font-size: clamp(0.8rem, 3vw, 1rem) !important;
+    padding: 0 1rem;
+    line-height: 1.4;
+  }
+
+  /* Navigation mobile - grille fixe pour éviter superpositions */
+  .mobile-nav-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+    max-width: 20rem !important;
+    margin: 0 auto !important;
+    padding: 0 1rem !important;
+  }
+
+  .mobile-nav-button {
+    min-height: 80px !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.75rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  .mobile-nav-icon {
+    font-size: 1.5rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  /* Hero section - hauteur adaptée mobile */
+  #hero {
+    min-height: 100vh !important;
+    padding: 2rem 1rem 1rem 1rem !important;
+  }
+}
+
+/* ===== CORRECTIONS SECTIONS GÉNÉRALES ===== */
+@media (max-width: 767px) {
+  /* Padding des sections */
+  section {
+    padding: 2rem 1rem !important;
+  }
+
+  /* Titres de sections */
+  section h2 {
+    font-size: clamp(1.75rem, 6vw, 2.5rem) !important;
+    text-align: center !important;
+    margin-bottom: 1.5rem !important;
+    line-height: 1.2 !important;
+  }
+
+  section h3 {
+    font-size: clamp(1.25rem, 4vw, 1.75rem) !important;
+  }
+
+  /* Cards nature - améliorations mobile */
+  .card-nature {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+    border-radius: 1rem !important;
+  }
+
+  /* Boutons - taille touch-friendly */
+  .btn-nature, .btn-warm, button {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.9rem !important;
+    border-radius: 1.5rem !important;
+  }
+
+  /* Grilles responsives */
+  .responsive-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .responsive-grid-menu {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+}
+
+/* ===== CORRECTIONS SECTION MENU ===== */
+@media (max-width: 767px) {
+  /* Navigation des catégories menu */
+  .menu-categories {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .menu-category-button {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.8rem !important;
+    border-radius: 1rem !important;
+    white-space: nowrap !important;
+  }
+
+  /* Items de menu */
+  .menu-item {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .menu-item-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+
+  .menu-item-price {
+    align-self: flex-end !important;
+    font-size: 1.25rem !important;
+  }
+
+  .menu-item-tags {
+    flex-wrap: wrap !important;
+    gap: 0.25rem !important;
+  }
+
+  .menu-item-tag {
+    font-size: 0.7rem !important;
+    padding: 0.25rem 0.5rem !important;
+  }
+}
+
+/* ===== CORRECTIONS SECTION RESTAURANT (GALERIE) ===== */
+@media (max-width: 767px) {
+  /* Galerie photos - grille mobile optimisée */
+  .restaurant-gallery {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-top: 2rem !important;
+  }
+
+  .gallery-item {
+    aspect-ratio: 1 !important;
+    border-radius: 0.75rem !important;
+  }
+
+  /* Caractéristiques restaurant */
+  .restaurant-characteristics {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+
+  .characteristic-item {
+    padding: 1rem !important;
+    text-align: center !important;
+  }
+
+  .characteristic-icon {
+    font-size: 2rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .characteristic-title {
+    font-size: 1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .characteristic-description {
+    font-size: 0.8rem !important;
+    line-height: 1.3 !important;
+  }
+}
+
+/* ===== CORRECTIONS SECTION ACTIVITÉS ===== */
+@media (max-width: 767px) {
+  /* Filtres activités */
+  .activities-filters {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .activity-filter-button {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.8rem !important;
+    border-radius: 1rem !important;
+  }
+
+  /* Cards activités */
+  .activity-card {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .activity-header {
+    flex-direction: row !important;
+    align-items: center !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .activity-icon {
+    font-size: 2rem !important;
+    margin-right: 1rem !important;
+    margin-bottom: 0 !important;
+  }
+
+  .activity-actions {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+
+  .activity-button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
+/* ===== CORRECTIONS SECTION INSTAGRAM ===== */
+@media (max-width: 767px) {
+  /* Post vedette Instagram */
+  .instagram-featured {
+    flex-direction: column !important;
+  }
+
+  .instagram-featured-image {
+    width: 100% !important;
+    height: 250px !important;
+    object-fit: cover !important;
+  }
+
+  .instagram-featured-content {
+    padding: 1.5rem !important;
+  }
+
+  /* Grille Instagram */
+  .instagram-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .instagram-item {
+    aspect-ratio: 1 !important;
+    border-radius: 0.75rem !important;
+  }
+}
+
+/* ===== CORRECTIONS SECTION PAIEMENT/RÉSERVATION ===== */
+@media (max-width: 767px) {
+  /* Navigation par onglets */
+  .payment-tabs {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .payment-tab-button {
+    width: 100% !important;
+    padding: 0.75rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* Options de réservation */
+  .reservation-option {
+    padding: 1.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .reservation-header {
+    flex-direction: column !important;
+    text-align: center !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .reservation-icon-container {
+    margin: 0 auto 1rem auto !important;
+  }
+
+  .reservation-features {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  .reservation-actions {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    margin-top: 1.5rem !important;
+  }
+
+  .reservation-contact {
+    text-align: center !important;
+  }
+
+  .reservation-button {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 1rem !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* ===== CORRECTIONS SECTION CONTACT ===== */
+@media (max-width: 767px) {
+  /* Méthodes de contact */
+  .contact-methods {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .contact-method {
+    padding: 1.5rem !important;
+    text-align: center !important;
+  }
+
+  .contact-icon-container {
+    margin: 0 auto 1rem auto !important;
+  }
+
+  /* Informations pratiques */
+  .practical-info {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+
+  .practical-info-item {
+    padding: 1rem !important;
+    text-align: center !important;
+  }
+
+  /* Carte de localisation */
+  .location-map {
+    height: 200px !important;
+    border-radius: 1rem !important;
+  }
+}
+
+/* ===== CORRECTIONS MODAL RÉSERVATION ===== */
+@media (max-width: 767px) {
+  .reservation-modal {
+    margin: 1rem !important;
+    max-height: 90vh !important;
+    border-radius: 1.5rem !important;
+  }
+
+  .modal-header {
+    padding: 1rem !important;
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .modal-progress {
+    margin-top: 1rem !important;
+    justify-content: center !important;
+  }
+
+  .modal-content {
+    padding: 1rem !important;
+    max-height: calc(90vh - 120px) !important;
+  }
+
+  .modal-step-title {
+    font-size: 1.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Formulaire modal */
+  .modal-form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .modal-form-input {
+    padding: 0.75rem !important;
+    font-size: 1rem !important;
+    border-radius: 0.75rem !important;
+  }
+
+  .modal-time-slots {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .modal-time-slot {
+    padding: 0.75rem !important;
+    font-size: 0.9rem !important;
+    border-radius: 0.75rem !important;
+  }
+
+  .modal-buttons {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    margin-top: 1.5rem !important;
+  }
+
+  .modal-button {
+    width: 100% !important;
+    padding: 1rem !important;
+    font-size: 1rem !important;
+    border-radius: 0.75rem !important;
+  }
+
+  /* Options de réservation dans modal */
+  .reservation-option-modal {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .reservation-option-header {
+    flex-direction: column !important;
+    text-align: center !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .reservation-option-icon {
+    margin: 0 auto 0.75rem auto !important;
+  }
+
+  .reservation-option-features {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
+}
+
+/* ===== CORRECTIONS NAVIGATION SCROLL INDICATOR ===== */
+@media (max-width: 767px) {
+  /* Barre de navigation mobile en haut */
+  .mobile-scroll-nav {
+    position: fixed !important;
+    top: 1rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 30 !important;
+    background: rgba(93, 112, 82, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    color: #e8dcc0 !important;
+    border-radius: 2rem !important;
+    padding: 0.75rem 1rem !important;
+    box-shadow: 0 4px 12px rgba(93, 112, 82, 0.3) !important;
+    border: 1px solid rgba(156, 174, 133, 0.3) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    max-width: calc(100vw - 2rem) !important;
+    font-size: 0.875rem !important;
+  }
+
+  .mobile-scroll-icon {
+    font-size: 1.25rem !important;
+  }
+
+  .mobile-scroll-label {
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+  }
+
+  .mobile-scroll-progress {
+    font-size: 0.75rem !important;
+    opacity: 0.8 !important;
+  }
+
+  .mobile-scroll-menu-button {
+    background: rgba(156, 174, 133, 0.3) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 2rem !important;
+    height: 2rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #e8dcc0 !important;
+    margin-left: 0.5rem !important;
+  }
+
+  /* Menu dropdown mobile */
+  .mobile-scroll-dropdown {
+    position: fixed !important;
+    top: 4rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 40 !important;
+    background: rgba(61, 74, 54, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+    border-radius: 1.5rem !important;
+    box-shadow: 0 8px 24px rgba(61, 74, 54, 0.4) !important;
+    border: 1px solid rgba(156, 174, 133, 0.3) !important;
+    padding: 1rem !important;
+    max-width: calc(100vw - 2rem) !important;
+    width: 20rem !important;
+  }
+
+  .mobile-dropdown-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 1rem !important;
+    padding-bottom: 0.75rem !important;
+    border-bottom: 1px solid rgba(156, 174, 133, 0.2) !important;
+  }
+
+  .mobile-dropdown-title {
+    color: #e8dcc0 !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+  }
+
+  .mobile-dropdown-close {
+    background: rgba(156, 174, 133, 0.2) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #e8dcc0 !important;
+  }
+
+  .mobile-dropdown-progress-bar {
+    width: 100% !important;
+    background: rgba(156, 174, 133, 0.2) !important;
+    border-radius: 0.5rem !important;
+    height: 0.25rem !important;
+    margin-bottom: 1rem !important;
+    overflow: hidden !important;
+  }
+
+  .mobile-dropdown-progress-fill {
+    height: 100% !important;
+    background: linear-gradient(90deg, #f2d478, #e89c5a) !important;
+    border-radius: 0.5rem !important;
+    transition: width 0.3s ease !important;
+  }
+
+  .mobile-dropdown-sections {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .mobile-dropdown-section {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 0.75rem !important;
+    border-radius: 0.75rem !important;
+    background: rgba(156, 174, 133, 0.1) !important;
+    border: 1px solid transparent !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+  }
+
+  .mobile-dropdown-section.active {
+    background: rgba(156, 174, 133, 0.3) !important;
+    border-color: rgba(242, 212, 120, 0.5) !important;
+    color: #f2d478 !important;
+  }
+
+  .mobile-dropdown-section:hover {
+    background: rgba(156, 174, 133, 0.2) !important;
+  }
+
+  .mobile-dropdown-section-icon {
+    font-size: 1.25rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .mobile-dropdown-section-label {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+    color: #e8dcc0 !important;
+  }
+
+  .mobile-dropdown-section.active .mobile-dropdown-section-label {
+    color: #f2d478 !important;
+  }
+
+  .mobile-dropdown-actions {
+    display: flex !important;
+    gap: 0.5rem !important;
+  }
+
+  .mobile-dropdown-action {
+    flex: 1 !important;
+    background: rgba(156, 174, 133, 0.2) !important;
+    border: none !important;
+    color: #e8dcc0 !important;
+    padding: 0.75rem !important;
+    border-radius: 0.75rem !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    transition: background 0.3s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.25rem !important;
+  }
+
+  .mobile-dropdown-action:hover {
+    background: rgba(156, 174, 133, 0.3) !important;
+  }
+
+  /* Bouton retour en haut mobile */
+  .mobile-scroll-to-top {
+    position: fixed !important;
+    bottom: 1.5rem !important;
+    right: 1.5rem !important;
+    z-index: 30 !important;
+    width: 3rem !important;
+    height: 3rem !important;
+    background: rgba(93, 112, 82, 0.9) !important;
+    color: #e8dcc0 !important;
+    border: none !important;
+    border-radius: 50% !important;
+    box-shadow: 0 4px 12px rgba(93, 112, 82, 0.3) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .mobile-scroll-to-top:hover {
+    background: rgba(93, 112, 82, 1) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(93, 112, 82, 0.4) !important;
+  }
+}
+
+/* ===== CORRECTIONS GÉNÉRALES POUR TRÈS PETITS ÉCRANS ===== */
+@media (max-width: 359px) {
+  /* Ajustements pour écrans très petits */
+  .hero-title {
+    font-size: 1.75rem !important;
+  }
+
+  .mobile-nav-grid {
+    max-width: 16rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .mobile-nav-button {
+    min-height: 70px !important;
+    padding: 0.5rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  .mobile-nav-icon {
+    font-size: 1.25rem !important;
+  }
+
+  .card-nature {
+    padding: 0.75rem !important;
+  }
+
+  .btn-nature, .btn-warm {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  section {
+    padding: 1.5rem 0.75rem !important;
+  }
+
+  section h2 {
+    font-size: 1.5rem !important;
+  }
+
+  .restaurant-gallery,
+  .instagram-grid {
+    gap: 0.25rem !important;
+  }
+
+  .practical-info {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  .mobile-scroll-nav {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  .mobile-scroll-dropdown {
+    width: 18rem !important;
+    padding: 0.75rem !important;
+  }
+
+  .mobile-dropdown-sections {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ===== CORRECTIONS ORIENTATION PAYSAGE MOBILE ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+  #hero {
+    padding: 1rem !important;
+  }
+
+  .hero-title {
+    font-size: clamp(1.5rem, 6vh, 2.5rem) !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.9rem, 3vh, 1.2rem) !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .hero-description {
+    font-size: clamp(0.8rem, 2.5vh, 1rem) !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .mobile-nav-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 0.5rem !important;
+    max-width: 24rem !important;
+  }
+
+  .mobile-nav-button {
+    min-height: 60px !important;
+    padding: 0.5rem !important;
+  }
+
+  .mobile-nav-icon {
+    font-size: 1.25rem !important;
+    margin-bottom: 0.125rem !important;
+  }
+
+  .mobile-scroll-nav {
+    top: 0.5rem !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  .mobile-scroll-to-top {
+    bottom: 1rem !important;
+    right: 1rem !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+  }
+}
+
+/* ===== CORRECTIONS POUR TABLETTES ===== */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Grilles tablettes */
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+
+  .responsive-grid-menu {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Navigation hero tablette */
+  .tablet-nav-grid {
+    max-width: 32rem !important;
+    gap: 1.5rem !important;
+  }
+
+  .tablet-nav-button {
+    min-height: 120px !important;
+    padding: 1.5rem !important;
+  }
+
+  /* Restaurant gallery tablette */
+  .restaurant-gallery {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1rem !important;
+  }
+
+  /* Instagram grid tablette */
+  .instagram-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1rem !important;
+  }
+
+  /* Contact methods tablette */
+  .contact-methods {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Activities tablette */
+  .activities-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+}
+
+/* Responsive improvements - maintenir l'existant */
 @media (max-width: 768px) {
   h1 { font-size: 2.5rem; }
   h2 { font-size: 2rem; }
