@@ -7,24 +7,22 @@ const AboutSection = () => {
   return (
     <Section
       id="about"
-      className="bg-gradient-to-br from-manjocarn-background via-manjocarn-sand-beige/30 to-manjocarn-mint-green/20 floating-elements relative"
+      className="bg-gradient-to-br from-manjocarn-background via-manjocarn-sand-beige/30 to-manjocarn-mint-green/20  relative"
     >
-      {/* Éléments décoratifs de fond */}
+      {/* Éléments décoratifs de fond sans émojis */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Motifs naturels subtils */}
+        {/* Formes géométriques subtiles au lieu d'émojis */}
         <motion.div
-          className="absolute top-20 left-10 text-manjocarn-sage-green/20 text-8xl"
+          className="absolute top-20 left-10 w-8 h-8 bg-manjocarn-sage-green/20 rounded-full"
           animate={{
             rotate: [0, 10, -5, 0],
             scale: [1, 1.1, 0.9, 1],
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        >
-          🌿
-        </motion.div>
+        />
 
         <motion.div
-          className="absolute bottom-32 right-16 text-manjocarn-leaf-green/25 text-6xl"
+          className="absolute bottom-32 right-16 w-6 h-6 bg-manjocarn-leaf-green/25 rounded-full"
           animate={{
             y: [0, -20, 0],
             rotate: [0, 15, 0],
@@ -35,12 +33,10 @@ const AboutSection = () => {
             ease: "easeInOut",
             delay: 2,
           }}
-        >
-          🍃
-        </motion.div>
+        />
 
         <motion.div
-          className="absolute top-1/2 right-1/4 text-manjocarn-mint-green/15 text-7xl"
+          className="absolute top-1/2 right-1/4 w-5 h-5 bg-manjocarn-mint-green/15 rounded-full"
           animate={{
             x: [0, 10, 0],
             y: [0, -15, 0],
@@ -52,9 +48,7 @@ const AboutSection = () => {
             ease: "easeInOut",
             delay: 1,
           }}
-        >
-          🌱
-        </motion.div>
+        />
 
         {/* Cercles décoratifs */}
         <div className="absolute top-16 right-20 w-24 h-24 bg-manjocarn-golden-yellow/10 rounded-full blur-xl animate-pulse-soft"></div>
@@ -110,10 +104,8 @@ const AboutSection = () => {
               whileHover={{ y: -4 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              {/* Icône décorative */}
-              <div className="absolute top-4 right-4 text-manjocarn-sage-green/20 text-3xl">
-                🏞️
-              </div>
+              {/* Forme géométrique décorative */}
+              <div className="absolute top-4 right-4 w-6 h-6 bg-manjocarn-sage-green/20 rounded-full"></div>
 
               <p className="text-lg text-manjocarn-dark-gray leading-relaxed mb-4 font-medium">
                 Lieu atypique en pleine nature qui possède une{" "}
@@ -149,17 +141,7 @@ const AboutSection = () => {
 
               <div className="relative z-10">
                 <div className="flex items-center mb-4">
-                  <motion.span
-                    className="text-3xl mr-3"
-                    animate={{ rotate: [0, 10, -10, 0] }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    🌟
-                  </motion.span>
+                  <div className="w-4 h-4 bg-manjocarn-golden-yellow rounded-full mr-3"></div>
                   <h3 className="font-playfair text-2xl text-gradient-nature font-bold">
                     Notre Philosophie
                   </h3>
@@ -184,61 +166,47 @@ const AboutSection = () => {
                     className="flex items-center text-sm text-manjocarn-forest-green"
                     whileHover={{ x: 5 }}
                   >
-                    <span className="mr-2">🌿</span>
+                    <div className="w-2 h-2 bg-manjocarn-sage-green rounded-full mr-2"></div>
                     <span className="font-medium">Pleine nature</span>
                   </motion.div>
                   <motion.div
                     className="flex items-center text-sm text-manjocarn-forest-green"
                     whileHover={{ x: 5 }}
                   >
-                    <span className="mr-2">🏖️</span>
+                    <div className="w-2 h-2 bg-manjocarn-sage-green rounded-full mr-2"></div>
                     <span className="font-medium">Plage privée</span>
                   </motion.div>
                   <motion.div
                     className="flex items-center text-sm text-manjocarn-forest-green"
                     whileHover={{ x: 5 }}
                   >
-                    <span className="mr-2">🌊</span>
+                    <div className="w-2 h-2 bg-manjocarn-sage-green rounded-full mr-2"></div>
                     <span className="font-medium">Accès rivière</span>
                   </motion.div>
                   <motion.div
                     className="flex items-center text-sm text-manjocarn-forest-green"
                     whileHover={{ x: 5 }}
                   >
-                    <span className="mr-2">😊</span>
+                    <div className="w-2 h-2 bg-manjocarn-sage-green rounded-full mr-2"></div>
                     <span className="font-medium">Accueil chaleureux</span>
                   </motion.div>
                 </div>
               </div>
             </motion.div>
 
-            {/* Citation décorative */}
-            <motion.div className="text-center relative" variants={fadeInUp}>
-              <motion.blockquote
-                className="font-amatic text-2xl md:text-3xl text-manjocarn-forest-green italic relative"
-                whileHover={{ scale: 1.05 }}
-              >
-                <span className="text-manjocarn-golden-yellow text-4xl absolute -top-2 -left-4">
-                  "
-                </span>
-                Un endroit où le temps s'arrête
-                <span className="text-manjocarn-golden-yellow text-4xl absolute -bottom-6 -right-4">
-                  "
-                </span>
-              </motion.blockquote>
-            </motion.div>
+            
           </motion.div>
         </motion.div>
 
-        {/* Section statistiques amusante */}
+        {/* Section statistiques avec formes géométriques */}
         <motion.div
           className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-8"
           variants={staggerContainer}
         >
           {[
-            { icon: "🍻", number: "∞", label: "Sourires partagés" },
-            { icon: "🎣", number: "24/7", label: "Accès rivière" },
-            { icon: "❤️", number: "💯", label: "Authenticité" },
+            { shape: "circle", number: "∞", label: "Sourires partagés" },
+            { shape: "square", number: "24/7", label: "Accès rivière" },
+            { shape: "triangle", number: "💯", label: "Authenticité" },
           ].map((stat, index) => (
             <motion.div
               key={index}
@@ -247,7 +215,13 @@ const AboutSection = () => {
               whileHover={{ y: -5, scale: 1.05 }}
             >
               <motion.div
-                className="text-4xl mb-3"
+                className={`w-12 h-12 mx-auto mb-3 ${
+                  stat.shape === "circle"
+                    ? "rounded-full bg-manjocarn-sage-green"
+                    : stat.shape === "square"
+                    ? "rounded-lg bg-manjocarn-golden-yellow"
+                    : "rounded-full bg-manjocarn-mint-green"
+                } flex items-center justify-center`}
                 animate={{
                   rotate: [0, 10, -10, 0],
                   scale: [1, 1.1, 1],
@@ -259,7 +233,7 @@ const AboutSection = () => {
                   delay: index * 0.5,
                 }}
               >
-                {stat.icon}
+                <div className="w-6 h-6 bg-white rounded-full"></div>
               </motion.div>
               <div className="text-2xl font-bold text-gradient-nature mb-2">
                 {stat.number}

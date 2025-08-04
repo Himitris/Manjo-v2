@@ -294,31 +294,7 @@ button:hover .bg-white {
   100% { background-position: 200% 0; }
 }
 
-.floating-elements {
-  position: relative;
-  overflow: hidden;
-}
 
-.floating-elements::before, .floating-elements::after {
-  content: '🍃';
-  position: absolute;
-  font-size: 1.5rem;
-  color: rgba(156, 174, 133, 0.3);
-  animation: float 8s ease-in-out infinite;
-  pointer-events: none;
-}
-
-.floating-elements::before {
-  top: 10%;
-  left: 10%;
-  animation-delay: 0s;
-}
-
-.floating-elements::after {
-  top: 60%;
-  right: 15%;
-  animation-delay: 4s;
-}
 
 .text-gradient-nature {
   background: linear-gradient(135deg, var(--manjocarn-forest-green), var(--manjocarn-sage-green));
@@ -580,7 +556,7 @@ button:hover .bg-white {
 }
 
 @media print {
-  .hero-section, .floating-elements, button, .modal { 
+  .hero-section, button, .modal { 
     display: none !important; 
   }
   .card-nature { 

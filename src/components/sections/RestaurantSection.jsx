@@ -70,31 +70,6 @@ const RestaurantSection = () => {
       className="bg-gradient-to-br from-manjocarn-background via-manjocarn-sand-beige/20 to-manjocarn-mint-green/15 relative overflow-hidden"
       withDecorations
     >
-      {/* Éléments décoratifs */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div
-          className="absolute top-16 right-20 text-manjocarn-sage-green/15 text-8xl"
-          animate={{
-            rotate: [0, 360],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        >
-          📷
-        </motion.div>
-
-        <motion.div
-          className="absolute bottom-32 left-16 text-manjocarn-golden-yellow/20 text-6xl"
-          animate={{
-            y: [0, -25, 0],
-            rotate: [0, 20, 0],
-          }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        >
-          🏡
-        </motion.div>
-      </div>
-
       <motion.div
         className="max-w-7xl mx-auto relative z-10"
         variants={staggerContainer}

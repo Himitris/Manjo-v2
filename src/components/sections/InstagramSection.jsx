@@ -36,49 +36,6 @@ const InstagramSection = () => {
       className="bg-gradient-to-br from-manjocarn-background via-manjocarn-sand-beige/20 to-manjocarn-pale-gold/30 relative overflow-hidden"
       withDecorations
     >
-      {/* Éléments décoratifs Instagram */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div
-          className="absolute top-16 right-20 text-manjocarn-sunset-orange/20 text-8xl"
-          animate={{
-            rotate: [0, 360],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        >
-          📸
-        </motion.div>
-
-        <motion.div
-          className="absolute bottom-32 left-16 text-manjocarn-sage-green/15 text-6xl"
-          animate={{
-            y: [0, -25, 0],
-            rotate: [0, 20, 0],
-          }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        >
-          💫
-        </motion.div>
-
-        {/* Icônes sociales flottantes */}
-        <motion.div
-          className="absolute top-1/3 left-10 text-manjocarn-golden-yellow/25 text-4xl"
-          animate={{
-            y: [0, -15, 0],
-            x: [0, 10, 0],
-            rotate: [0, 15, 0],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        >
-          ❤️
-        </motion.div>
-      </div>
-
       <motion.div
         className="max-w-7xl mx-auto relative z-10"
         variants={staggerContainer}
