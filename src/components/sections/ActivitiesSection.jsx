@@ -126,24 +126,15 @@ const ActivitiesSection = () => {
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.id)}
-              className={`flex items-center px-3 md:px-6 py-2 md:py-3 rounded-xl md:rounded-2xl font-medium transition-all duration-300 text-sm md:text-base ${
+              className={`flex items-center px-4 md:px-6 py-2.5 md:py-3 rounded-xl md:rounded-2xl font-semibold transition-all duration-300 text-sm md:text-base border-2 ${
                 selectedCategory === category.id
-                  ? "shadow-nature-lg scale-105 transform border-2"
-                  : "bg-white text-manjocarn-dark-gray hover:bg-manjocarn-sage-green/20 border border-manjocarn-sage-green/30"
+                  ? "bg-manjocarn-forest-green text-manjocarn-sand-beige border-manjocarn-forest-green shadow-nature-lg scale-105"
+                  : "bg-white text-manjocarn-dark-gray hover:bg-manjocarn-sage-green/20 border-manjocarn-sage-green/30 hover:border-manjocarn-sage-green/50"
               }`}
-              style={
-                selectedCategory === category.id
-                  ? {
-                      backgroundColor: "var(--manjocarn-forest-green)",
-                      color: "var(--manjocarn-sand-beige)",
-                      borderColor: "var(--manjocarn-forest-green)",
-                    }
-                  : {}
-              }
             >
               <category.Icon className="w-5 h-5 mr-2" />
               {category.label}
-              <span className="ml-2 text-xs bg-manjocarn-golden-yellow/30 px-2 py-1 rounded-full">
+              <span className="ml-2 text-xs bg-manjocarn-golden-yellow/30 px-2 py-1 rounded-full font-medium">
                 {category.id === "all"
                   ? activitiesData.length
                   : activitiesData.filter((a) => a.category === category.id)
@@ -182,7 +173,7 @@ const ActivitiesSection = () => {
                 {activity.tags.slice(0, 3).map((tag, tagIndex) => (
                   <span
                     key={tagIndex}
-                    className="bg-manjocarn-sage-green/20 text-manjocarn-forest-green text-xs px-2 md:px-3 py-1 rounded-full"
+                    className="inline-flex items-center bg-manjocarn-mint-green/30 text-manjocarn-forest-green text-xs px-3 py-1.5 rounded-full font-medium border border-manjocarn-sage-green/40"
                   >
                     {tag}
                   </span>
@@ -195,15 +186,15 @@ const ActivitiesSection = () => {
                     href={activity.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 bg-manjocarn-sage-green text-white text-center py-2 px-3 md:px-4 rounded-lg text-sm font-medium hover:bg-manjocarn-forest-green transition-colors"
+                    className="flex-1 bg-manjocarn-sage-green text-white text-center py-2.5 px-4 rounded-xl text-sm font-semibold hover:bg-manjocarn-forest-green transition-all hover:shadow-md flex items-center justify-center"
                   >
-                    <ExternalLink size={14} className="inline mr-1" />
+                    <ExternalLink size={16} className="inline mr-2" />
                     Site web
                   </a>
                 )}
                 <button
                   onClick={() => setSelectedActivity(activity)}
-                  className="flex-1 border-2 border-manjocarn-sage-green text-manjocarn-forest-green text-center py-2 px-3 md:px-4 rounded-lg text-sm font-medium hover:bg-manjocarn-sage-green/10 transition-colors"
+                  className="flex-1 border-2 border-manjocarn-sage-green text-manjocarn-forest-green text-center py-2.5 px-4 rounded-xl text-sm font-semibold hover:bg-manjocarn-sage-green/10 transition-all hover:border-manjocarn-forest-green"
                 >
                   Détails
                 </button>

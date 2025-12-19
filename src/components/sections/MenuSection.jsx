@@ -141,7 +141,7 @@ const MenuSection = () => {
 
         {/* Navigation catégories responsive */}
         <motion.div
-          className="menu-categories"
+          className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8 md:mb-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -155,11 +155,11 @@ const MenuSection = () => {
               <motion.button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`menu-category-button ${
+                className={`flex items-center px-4 md:px-6 py-2 md:py-3 rounded-xl md:rounded-2xl font-semibold text-sm md:text-base transition-all duration-300 border-2 ${
                   isActive
                     ? "bg-manjocarn-forest-green text-manjocarn-sand-beige border-manjocarn-forest-green shadow-nature-lg scale-105"
-                    : "bg-white text-manjocarn-dark-gray hover:bg-manjocarn-sage-green/20 border-manjocarn-sage-green/30"
-                } border-2 transition-all duration-300`}
+                    : "bg-white text-manjocarn-dark-gray hover:bg-manjocarn-sage-green/20 border-manjocarn-sage-green/30 hover:border-manjocarn-sage-green/50"
+                }`}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={`Voir la catégorie ${category.label}`}
@@ -167,7 +167,7 @@ const MenuSection = () => {
                 <category.Icon className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2" />
                 <span className="hidden sm:inline">{category.label}</span>
                 <span className="sm:hidden">{category.label.slice(0, 4)}</span>
-                <span className="ml-1 md:ml-2 text-xs bg-manjocarn-golden-yellow/40 px-1.5 md:px-2 py-0.5 md:py-1 rounded-full">
+                <span className="ml-1 md:ml-2 text-xs bg-manjocarn-golden-yellow/40 px-1.5 md:px-2 py-0.5 md:py-1 rounded-full font-medium">
                   {itemCount}
                 </span>
               </motion.button>
@@ -220,17 +220,17 @@ const MenuSection = () => {
               </p>
 
               {/* Tags responsive */}
-              <div className="menu-item-tags flex flex-wrap gap-1 md:gap-2 mb-2">
+              <div className="flex flex-wrap gap-2 mb-2">
                 {item.tags.slice(0, 3).map((tag, tagIndex) => (
                   <span
                     key={tagIndex}
-                    className="menu-item-tag bg-manjocarn-mint-green/30 text-manjocarn-forest-green text-xs px-2 md:px-3 py-1 rounded-full font-medium border border-manjocarn-sage-green/30"
+                    className="inline-flex items-center bg-manjocarn-mint-green/30 text-manjocarn-forest-green text-xs px-3 py-1.5 rounded-full font-medium border border-manjocarn-sage-green/40 hover:bg-manjocarn-mint-green/40 transition-colors"
                   >
                     {tag}
                   </span>
                 ))}
                 {item.tags.length > 3 && (
-                  <span className="menu-item-tag bg-manjocarn-sage-green/20 text-manjocarn-forest-green text-xs px-2 md:px-3 py-1 rounded-full font-medium border border-manjocarn-sage-green/30">
+                  <span className="inline-flex items-center bg-manjocarn-sage-green/20 text-manjocarn-forest-green text-xs px-3 py-1.5 rounded-full font-medium border border-manjocarn-sage-green/40">
                     +{item.tags.length - 3}
                   </span>
                 )}
