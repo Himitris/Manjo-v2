@@ -1,49 +1,58 @@
 // src/components/sections/HeroSection.jsx
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { ChevronDown } from "lucide-react";
+import {
+  ChevronDown,
+  MapPin,
+  UtensilsCrossed,
+  Home,
+  Waves,
+  Calendar,
+  Camera,
+  CreditCard
+} from "lucide-react";
 
 const navigationButtons = [
   {
     id: "about",
     label: "Manjocarn",
-    icon: "🏞️",
+    Icon: MapPin,
     position: { top: "20%", left: "15%" },
   },
   {
     id: "menu",
     label: "La Carte",
-    icon: "🍽️",
+    Icon: UtensilsCrossed,
     position: { top: "30%", right: "20%" },
   },
   {
     id: "restaurant",
     label: "Restaurant",
-    icon: "🏡",
+    Icon: Home,
     position: { top: "50%", left: "10%" },
   },
   {
     id: "activities",
     label: "Activités",
-    icon: "🚣",
+    Icon: Waves,
     position: { top: "60%", right: "15%" },
   },
   {
     id: "events",
     label: "Événements",
-    icon: "🎉",
+    Icon: Calendar,
     position: { top: "75%", left: "25%" },
   },
   {
     id: "instagram",
     label: "Instagram",
-    icon: "📸",
+    Icon: Camera,
     position: { top: "35%", left: "70%" },
   },
   {
     id: "payment",
     label: "Réserver",
-    icon: "💳",
+    Icon: CreditCard,
     position: { top: "70%", right: "30%" },
   },
 ];
@@ -228,9 +237,10 @@ const HeroSection = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection(button.id)}
               >
-                <span className="text-2xl mb-1 group-hover:scale-110 transition-transform">
-                  {button.icon}
-                </span>
+                <button.Icon
+                  className="mb-1 group-hover:scale-110 transition-transform text-manjocarn-forest-green group-hover:text-manjocarn-sand-beige"
+                  size={24}
+                />
                 <span className="text-xs font-semibold text-manjocarn-forest-green group-hover:text-manjocarn-sand-beige text-center leading-tight">
                   {button.label}
                 </span>
@@ -262,9 +272,10 @@ const HeroSection = () => {
                 onMouseEnter={() => setHoveredButton(button.id)}
                 onMouseLeave={() => setHoveredButton(null)}
               >
-                <span className="text-3xl mb-3 group-hover:scale-110 transition-transform">
-                  {button.icon}
-                </span>
+                <button.Icon
+                  className="mb-3 group-hover:scale-110 transition-transform text-manjocarn-forest-green group-hover:text-manjocarn-sand-beige"
+                  size={32}
+                />
                 <span className="text-base font-semibold text-manjocarn-forest-green group-hover:text-manjocarn-sand-beige text-center">
                   {button.label}
                 </span>
@@ -286,9 +297,10 @@ const HeroSection = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection(button.id)}
               >
-                <span className="text-2xl mb-2 group-hover:scale-110 transition-transform">
-                  {button.icon}
-                </span>
+                <button.Icon
+                  className="mb-2 group-hover:scale-110 transition-transform text-manjocarn-forest-green group-hover:text-manjocarn-sand-beige"
+                  size={24}
+                />
                 <span className="text-sm font-semibold text-manjocarn-forest-green group-hover:text-manjocarn-sand-beige text-center">
                   {button.label}
                 </span>
@@ -326,9 +338,10 @@ const HeroSection = () => {
                   }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <span className="text-2xl md:text-3xl group-hover:scale-110 transition-transform">
-                    {button.icon}
-                  </span>
+                  <button.Icon
+                    className="group-hover:scale-110 transition-transform text-manjocarn-forest-green group-hover:text-manjocarn-sand-beige"
+                    size={32}
+                  />
 
                   {/* Effet de pulsation */}
                   <motion.div

@@ -1,6 +1,6 @@
 // src/components/sections/ActivitiesSection.jsx
 import { motion } from "framer-motion";
-import { ExternalLink, Phone, MapPin } from "lucide-react";
+import { ExternalLink, Phone, MapPin, Target, Waves, Footprints, TreePine, PersonStanding, Map } from "lucide-react";
 import Section from "../ui/Section";
 import { useState } from "react";
 
@@ -10,7 +10,7 @@ const activitiesData = [
     name: "Paintball",
     description:
       "Participez à des jeux de paintball excitants dans un cadre naturel exceptionnel.",
-    icon: "🎯",
+    Icon: Target,
     phone: "06 63 01 4219",
     website: "https://www.valblasterexperience.fr/",
     address: "Lieu dit Biars, 82140 St Antonin Noble-Val",
@@ -22,7 +22,7 @@ const activitiesData = [
     name: "Canoë",
     description:
       "Pagayez en harmonie avec la nature lors d'une sortie en canoë sur la rivière.",
-    icon: "🚣",
+    Icon: Waves,
     address: "82140 Saint-Antonin-Noble-Val",
     category: "nautique",
     tags: ["Nature", "Famille", "Détente"],
@@ -32,7 +32,7 @@ const activitiesData = [
     name: "Randonnée",
     description:
       "Découvrez des sentiers de randonnée pittoresques autour de Saint-Antonin-Noble-Val.",
-    icon: "🥾",
+    Icon: Footprints,
     website:
       "https://www.alltrails.com/fr/france/tarn-et-garonne/saint-antonin-noble-val",
     address: "82140 Saint-Antonin-Noble-Val",
@@ -44,7 +44,7 @@ const activitiesData = [
     name: "Accrobranche",
     description:
       "Aventurez-vous dans les arbres pour une expérience accrobranche inoubliable.",
-    icon: "🌲",
+    Icon: TreePine,
     phone: "+33 7 60 35 53 14",
     website: "https://www.parc-aventure-aveyron.com/",
     address: "Lieu-Dit Turlande, 82140 Saint-Antonin-Noble-Val",
@@ -56,7 +56,7 @@ const activitiesData = [
     name: "Trail des 3 rocs",
     description:
       "Testez vos compétences sur le parcours Trail des 3 rocs, un défi sportif unique.",
-    icon: "🏃",
+    Icon: PersonStanding,
     website: "https://www.traildestroisrocs.fr/fr",
     category: "sport",
     tags: ["Course", "Défi", "Compétition"],
@@ -66,7 +66,7 @@ const activitiesData = [
     name: "Escapade Mystère",
     description:
       "Partez pour une aventure mystérieuse en Aveyron avec des activités surprenantes.",
-    icon: "🗺️",
+    Icon: Map,
     phone: "06 98 90 85 29",
     website: "https://www.aquobapla.fr/",
     category: "mystere",
@@ -75,12 +75,12 @@ const activitiesData = [
 ];
 
 const categories = [
-  { id: "all", label: "Toutes", icon: "📸" },
-  { id: "aventure", label: "Aventure", icon: "🎯" },
-  { id: "nautique", label: "Nautique", icon: "🚣" },
-  { id: "randonnee", label: "Randonnée", icon: "🥾" },
-  { id: "sport", label: "Sport", icon: "🏃" },
-  { id: "mystere", label: "Mystère", icon: "🗺️" },
+  { id: "all", label: "Toutes", Icon: MapPin },
+  { id: "aventure", label: "Aventure", Icon: Target },
+  { id: "nautique", label: "Nautique", Icon: Waves },
+  { id: "randonnee", label: "Randonnée", Icon: Footprints },
+  { id: "sport", label: "Sport", Icon: PersonStanding },
+  { id: "mystere", label: "Mystère", Icon: Map },
 ];
 
 const ActivitiesSection = () => {
@@ -141,7 +141,7 @@ const ActivitiesSection = () => {
                   : {}
               }
             >
-              <span className="text-lg mr-2">{category.icon}</span>
+              <category.Icon className="w-5 h-5 mr-2" />
               {category.label}
               <span className="ml-2 text-xs bg-manjocarn-golden-yellow/30 px-2 py-1 rounded-full">
                 {category.id === "all"
@@ -171,7 +171,7 @@ const ActivitiesSection = () => {
                     {activity.name}
                   </h3>
                 </div>
-                <div className="text-2xl md:text-3xl">{activity.icon}</div>
+                <activity.Icon className="w-8 h-8 md:w-10 md:h-10 text-manjocarn-sage-green" />
               </div>
 
               <p className="text-sm md:text-base leading-relaxed mb-4 text-manjocarn-dark-gray">

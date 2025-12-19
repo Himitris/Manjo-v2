@@ -122,7 +122,7 @@ const AboutSection = () => {
               <p className="text-lg text-manjocarn-dark-gray leading-relaxed">
                 À Manjocarn on se tutoie et on passe un moment. On s'y arrête un
                 temps, prendre une glace ou une bière... la guinguette est
-                chaleureuse et on vous accueille avec le sourire 😊
+                chaleureuse et on vous accueille avec le sourire.
               </p>
             </motion.div>
 
@@ -206,7 +206,7 @@ const AboutSection = () => {
           {[
             { shape: "circle", number: "∞", label: "Sourires partagés" },
             { shape: "square", number: "24/7", label: "Accès rivière" },
-            { shape: "triangle", number: "💯", label: "Authenticité" },
+            { shape: "triangle", number: "100%", label: "Authenticité" },
           ].map((stat, index) => (
             <motion.div
               key={index}

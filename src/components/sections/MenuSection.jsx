@@ -1,7 +1,7 @@
 // src/components/sections/MenuSection.jsx
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { ChefHat, Star, Utensils } from "lucide-react";
+import { ChefHat, Star, Utensils, Salad, Beef, IceCream } from "lucide-react";
 import Section from "../ui/Section";
 
 // Données du menu simplifiées
@@ -11,7 +11,6 @@ const menuData = {
       name: "Frites",
       price: "5",
       description: "Frites maison croustillantes",
-      icon: "🍟",
       tags: ["Fait maison", "Croustillant"],
       popular: false,
     },
@@ -19,7 +18,6 @@ const menuData = {
       name: "Soupe",
       price: "6",
       description: "Soupe à l'oignon et au fromage",
-      icon: "🍲",
       tags: ["Réconfortant", "Fromage"],
       popular: false,
     },
@@ -27,7 +25,6 @@ const menuData = {
       name: "Paté",
       price: "7",
       description: "Paté de pintade 90g",
-      icon: "🥓",
       tags: ["Terroir", "Artisanal"],
       popular: false,
     },
@@ -35,7 +32,6 @@ const menuData = {
       name: "Rillette",
       price: "12",
       description: "Rillette d'oie",
-      icon: "🦆",
       tags: ["Spécialité", "Sud-Ouest"],
       popular: true,
     },
@@ -44,7 +40,6 @@ const menuData = {
       price: "14",
       description:
         "Trio de paté de porc noir, piment d'espelette, rillette porc canard",
-      icon: "🍽️",
       tags: ["Dégustation", "Piment", "Généreux"],
       popular: true,
     },
@@ -54,7 +49,6 @@ const menuData = {
       name: "Menu enfant",
       price: "8.5",
       description: "Saucisse, frites, salade, glace",
-      icon: "🧒",
       tags: ["Enfant", "Complet"],
       popular: false,
     },
@@ -62,7 +56,6 @@ const menuData = {
       name: "Saucisse",
       price: "12",
       description: "Saucisse grillée avec frites et salade",
-      icon: "🌭",
       tags: ["Grillée", "Classique"],
       popular: false,
     },
@@ -70,7 +63,6 @@ const menuData = {
       name: "Cassoulet",
       price: "17.5",
       description: "Plat traditionnel du Sud-Ouest",
-      icon: "🫘",
       tags: ["Traditionnel", "Sud-Ouest", "Mijoté"],
       popular: true,
     },
@@ -78,7 +70,6 @@ const menuData = {
       name: "Magret",
       price: "25",
       description: "Magret de canard avec frites",
-      icon: "🍖",
       tags: ["Premium", "Canard", "Chef"],
       popular: true,
     },
@@ -86,7 +77,6 @@ const menuData = {
       name: "Confit",
       price: "20",
       description: "Cuisse de canard confit avec frites",
-      icon: "🦆",
       tags: ["Confit", "Tradition", "Généreux"],
       popular: true,
     },
@@ -96,7 +86,6 @@ const menuData = {
       name: "Glaces",
       price: "5",
       description: "Glaces artisanales",
-      icon: "🍦",
       tags: ["Artisanal", "Rafraîchissant"],
       popular: true,
     },
@@ -104,7 +93,6 @@ const menuData = {
       name: "Dessert",
       price: "7",
       description: "Dessert du moment",
-      icon: "🎂",
       tags: ["Premium", "Chef", "Surprise"],
       popular: false,
     },
@@ -112,9 +100,9 @@ const menuData = {
 };
 
 const categories = [
-  { id: "entrees", label: "Entrées", icon: "🥗" },
-  { id: "plats", label: "Plats", icon: "🍽️" },
-  { id: "desserts", label: "Desserts", icon: "🍰" },
+  { id: "entrees", label: "Entrées", Icon: Salad },
+  { id: "plats", label: "Plats", Icon: Beef },
+  { id: "desserts", label: "Desserts", Icon: IceCream },
 ];
 
 const MenuSection = () => {
@@ -176,9 +164,7 @@ const MenuSection = () => {
                 whileTap={{ scale: 0.95 }}
                 aria-label={`Voir la catégorie ${category.label}`}
               >
-                <span className="text-base md:text-lg mr-1 md:mr-2">
-                  {category.icon}
-                </span>
+                <category.Icon className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2" />
                 <span className="hidden sm:inline">{category.label}</span>
                 <span className="sm:hidden">{category.label.slice(0, 4)}</span>
                 <span className="ml-1 md:ml-2 text-xs bg-manjocarn-golden-yellow/40 px-1.5 md:px-2 py-0.5 md:py-1 rounded-full">
@@ -217,15 +203,10 @@ const MenuSection = () => {
 
               {/* Header responsive */}
               <div className="menu-item-header flex flex-col sm:flex-row sm:items-start justify-between mb-3 md:mb-4">
-                <div className="flex items-center flex-1 mb-2 sm:mb-0">
-                  <span className="text-xl md:text-3xl lg:text-4xl mr-2 md:mr-4 flex-shrink-0">
-                    {item.icon}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-base md:text-xl font-bold text-manjocarn-dark-gray mb-1 truncate">
-                      {item.name}
-                    </h3>
-                  </div>
+                <div className="flex-1 mb-2 sm:mb-0">
+                  <h3 className="text-base md:text-xl font-bold text-manjocarn-dark-gray mb-1">
+                    {item.name}
+                  </h3>
                 </div>
 
                 <div className="menu-item-price bg-manjocarn-forest-green text-manjocarn-sand-beige px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl font-bold text-sm md:text-lg whitespace-nowrap">
@@ -279,7 +260,7 @@ const MenuSection = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.5 }}
         >
-          <div className="text-2xl md:text-4xl mb-3 md:mb-4">👨‍🍳</div>
+          <ChefHat className="w-10 h-10 md:w-12 md:h-12 mb-3 md:mb-4 mx-auto text-manjocarn-forest-green" />
           <h3 className="text-lg md:text-2xl text-manjocarn-forest-green mb-3 md:mb-4 font-bold">
             Cuisine du Terroir
           </h3>
@@ -294,20 +275,11 @@ const MenuSection = () => {
           </p>
 
           <div className="mt-4 md:mt-6 inline-flex items-center text-manjocarn-forest-green font-medium text-xs md:text-base flex-wrap justify-center gap-2">
-            <span className="flex items-center">
-              <span className="mr-1">🌿</span>
-              Produits locaux
-            </span>
+            <span>Produits locaux</span>
             <span className="hidden sm:inline">•</span>
-            <span className="flex items-center">
-              <span className="mr-1 sm:mr-0">🏠</span>
-              <span className="sm:ml-1">Cuisine maison</span>
-            </span>
+            <span>Cuisine maison</span>
             <span className="hidden sm:inline">•</span>
-            <span className="flex items-center">
-              <span className="mr-1 sm:mr-0">🌱</span>
-              <span className="sm:ml-1">Selon saison</span>
-            </span>
+            <span>Selon saison</span>
           </div>
         </motion.div>
       </div>

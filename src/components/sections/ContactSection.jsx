@@ -47,22 +47,22 @@ const ContactSection = () => {
 
   const practicalInfo = [
     {
-      icon: "🅿️",
+      Icon: Car,
       title: "Parking gratuit",
       description: "Places disponibles sur place",
     },
     {
-      icon: "🚻",
+      Icon: MapPin,
       title: "Sanitaires",
       description: "Toilettes accessibles",
     },
     {
-      icon: "🦽",
+      Icon: Navigation,
       title: "Accessibilité",
       description: "Accès facilité terrasse",
     },
     {
-      icon: "🐕",
+      Icon: MapPin,
       title: "Animaux",
       description: "Chiens acceptés en laisse",
     },
@@ -74,34 +74,13 @@ const ContactSection = () => {
       id="contact"
       className="bg-gradient-to-br from-manjocarn-deep-forest via-manjocarn-forest-green to-manjocarn-pine-green text-manjocarn-sand-beige relative overflow-hidden"
     >
-      {/* Éléments décoratifs nocturnes */}
+      {/* Éléments décoratifs naturels */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div
-          className="absolute top-20 left-16 text-manjocarn-golden-yellow/30 text-6xl"
-          animate={{
-            rotate: [0, 360],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        >
-          🌟
-        </motion.div>
-
-        <motion.div
-          className="absolute bottom-32 right-20 text-manjocarn-mint-green/25 text-5xl"
-          animate={{
-            y: [0, -20, 0],
-            x: [0, 10, 0],
-            rotate: [0, 15, 0],
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        >
-          📍
-        </motion.div>
-
         {/* Particules lumineuses */}
         <div className="absolute top-1/4 right-1/4 w-20 h-20 bg-manjocarn-golden-yellow/20 rounded-full blur-xl animate-pulse-soft"></div>
         <div className="absolute bottom-1/3 left-1/5 w-32 h-32 bg-manjocarn-mint-green/15 rounded-full blur-2xl animate-float"></div>
+        <div className="absolute top-16 left-20 w-24 h-24 bg-manjocarn-sage-green/10 rounded-full blur-xl animate-float"></div>
+        <div className="absolute bottom-20 right-32 w-28 h-28 bg-manjocarn-golden-yellow/10 rounded-full blur-2xl animate-pulse-soft"></div>
       </div>
 
       <motion.div
@@ -216,7 +195,7 @@ const ContactSection = () => {
                     delay: index * 0.5,
                   }}
                 >
-                  {info.icon}
+                  <info.Icon className="w-8 h-8 text-manjocarn-golden-yellow" />
                 </motion.div>
                 <h4 className="font-semibold text-manjocarn-sand-beige mb-2">
                   {info.title}
@@ -296,9 +275,18 @@ const ContactSection = () => {
           </p>
 
           <div className="flex flex-wrap justify-center gap-6 text-sm text-manjocarn-sand-beige/80 mb-6">
-            <span>📍 Saint-Antonin-Noble-Val</span>
-            <span>📞 +33 5 63 68 25 85</span>
-            <span>⏰ Selon saison</span>
+            <span className="flex items-center gap-2">
+              <MapPin size={16} />
+              Saint-Antonin-Noble-Val
+            </span>
+            <span className="flex items-center gap-2">
+              <Phone size={16} />
+              +33 5 63 68 25 85
+            </span>
+            <span className="flex items-center gap-2">
+              <Clock size={16} />
+              Selon saison
+            </span>
           </div>
 
           <motion.div
