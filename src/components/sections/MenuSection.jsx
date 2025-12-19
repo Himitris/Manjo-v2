@@ -109,9 +109,13 @@ const MenuSection = () => {
   const [activeCategory, setActiveCategory] = useState("plats");
 
   return (
-    <Section id="menu" className="py-8 md:py-16 lg:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header responsive */}
+    <Section id="menu" className="py-8 md:py-16 lg:py-20 wavy-border-top wavy-border-bottom leaf-pattern relative">
+      {/* Accents colorés de fond */}
+      <div className="absolute top-40 right-10 w-48 h-48 bg-[#c65d3b]/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-40 left-10 w-56 h-56 bg-[#4a7c8c]/5 rounded-full blur-3xl" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header responsive avec nouvelle identité */}
         <motion.div
           className="text-center mb-8 md:mb-12"
           initial={{ opacity: 0, y: -20 }}
@@ -119,21 +123,28 @@ const MenuSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <div className="inline-flex items-center mb-4 md:mb-6 bg-white px-4 md:px-8 py-3 md:py-4 rounded-full shadow-md">
+          <div className="inline-flex items-center mb-4 md:mb-6 px-4 md:px-8 py-3 md:py-4 rounded-full shadow-lg border-3" style={{
+            background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(245, 230, 200, 0.9))',
+            borderColor: '#c65d3b'
+          }}>
             <ChefHat
-              className="mr-2 md:mr-3 text-manjocarn-forest-green"
+              className="mr-2 md:mr-3"
               size={24}
+              style={{ color: '#c65d3b' }}
             />
-            <span className="text-sm md:text-lg font-semibold text-manjocarn-dark-gray">
+            <span className="subtitle-handwritten text-base md:text-xl" style={{ color: '#6b4e3d' }}>
               Notre Cuisine
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gradient-nature mb-4 md:mb-6 px-4">
+          <h2 className="title-sketch text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-4 md:mb-6 px-4" style={{ color: '#c65d3b' }}>
             La Carte du Manjocarn
           </h2>
 
-          <p className="mt-4 md:mt-6 text-sm md:text-lg text-manjocarn-dark-gray max-w-2xl mx-auto leading-relaxed px-4">
+          {/* Ligne décorative */}
+          <div className="organic-divider mx-auto mb-6" />
+
+          <p className="mt-4 md:mt-6 text-sm md:text-lg font-semibold max-w-2xl mx-auto leading-relaxed px-4" style={{ color: '#6b4e3d' }}>
             Découvrez nos spécialités du terroir, préparées avec passion et des
             produits frais du coin.
           </p>
@@ -155,11 +166,17 @@ const MenuSection = () => {
               <motion.button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex items-center px-4 md:px-6 py-2 md:py-3 rounded-xl md:rounded-2xl font-semibold text-sm md:text-base transition-all duration-300 border-2 ${
+                className={`flex items-center px-4 md:px-6 py-2 md:py-3 rounded-xl md:rounded-2xl font-bold text-sm md:text-base transition-all duration-300 border-3 shadow-md ${
                   isActive
-                    ? "bg-manjocarn-forest-green text-manjocarn-sand-beige border-manjocarn-forest-green shadow-nature-lg scale-105"
-                    : "bg-white text-manjocarn-dark-gray hover:bg-manjocarn-sage-green/20 border-manjocarn-sage-green/30 hover:border-manjocarn-sage-green/50"
+                    ? "border-[#c65d3b] shadow-lg scale-105"
+                    : "border-[#4a7c8c]/40 hover:border-[#c65d3b]/60"
                 }`}
+                style={{
+                  background: isActive
+                    ? 'linear-gradient(145deg, #c65d3b, #d47350)'
+                    : 'linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(232, 220, 192, 0.9))',
+                  color: isActive ? '#f5e6c8' : '#6b4e3d'
+                }}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={`Voir la catégorie ${category.label}`}
@@ -167,7 +184,10 @@ const MenuSection = () => {
                 <category.Icon className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2" />
                 <span className="hidden sm:inline">{category.label}</span>
                 <span className="sm:hidden">{category.label.slice(0, 4)}</span>
-                <span className="ml-1 md:ml-2 text-xs bg-manjocarn-golden-yellow/40 px-1.5 md:px-2 py-0.5 md:py-1 rounded-full font-medium">
+                <span className="ml-1 md:ml-2 text-xs px-1.5 md:px-2 py-0.5 md:py-1 rounded-full font-bold" style={{
+                  backgroundColor: isActive ? 'rgba(245, 230, 200, 0.3)' : 'rgba(198, 93, 59, 0.2)',
+                  color: isActive ? '#f5e6c8' : '#c65d3b'
+                }}>
                   {itemCount}
                 </span>
               </motion.button>
@@ -186,16 +206,20 @@ const MenuSection = () => {
           {menuData[activeCategory]?.map((item, index) => (
             <motion.div
               key={index}
-              className="menu-item bg-white rounded-xl md:rounded-2xl p-4 md:p-6 hover:shadow-nature-lg transition-all duration-300 relative overflow-hidden"
+              className="menu-item rounded-xl md:rounded-2xl p-4 md:p-6 transition-all duration-300 relative overflow-hidden border-3 shadow-md hover:shadow-xl"
+              style={{
+                background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(245, 230, 200, 0.85))',
+                borderColor: item.popular ? '#c65d3b' : '#4a7c8c'
+              }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               whileHover={{ y: -4, scale: 1.02 }}
             >
-              {/* Badge populaire */}
+              {/* Badge populaire avec nouveau style */}
               {item.popular && (
-                <div className="absolute top-2 md:top-4 right-2 md:right-4 bg-manjocarn-sunset-orange text-white text-xs px-2 md:px-3 py-1 rounded-full font-bold flex items-center">
-                  <Star size={8} className="mr-1" fill="currentColor" />
+                <div className="badge-handmade absolute top-2 md:top-4 right-2 md:right-4 text-xs px-2 md:px-3 py-1 flex items-center">
+                  <Star size={10} className="mr-1" fill="currentColor" />
                   <span className="hidden sm:inline">Popular</span>
                   <span className="sm:hidden">★</span>
                 </div>
@@ -219,18 +243,27 @@ const MenuSection = () => {
                 {item.description}
               </p>
 
-              {/* Tags responsive */}
+              {/* Tags responsive avec nouvelle palette */}
               <div className="flex flex-wrap gap-2 mb-2">
                 {item.tags.slice(0, 3).map((tag, tagIndex) => (
                   <span
                     key={tagIndex}
-                    className="inline-flex items-center bg-manjocarn-mint-green/30 text-manjocarn-forest-green text-xs px-3 py-1.5 rounded-full font-medium border border-manjocarn-sage-green/40 hover:bg-manjocarn-mint-green/40 transition-colors"
+                    className="inline-flex items-center text-xs px-3 py-1.5 rounded-full font-bold border-2 transition-all hover:scale-105"
+                    style={{
+                      backgroundColor: tagIndex % 2 === 0 ? 'rgba(74, 124, 140, 0.15)' : 'rgba(198, 93, 59, 0.15)',
+                      color: tagIndex % 2 === 0 ? '#2f5a68' : '#c65d3b',
+                      borderColor: tagIndex % 2 === 0 ? 'rgba(74, 124, 140, 0.3)' : 'rgba(198, 93, 59, 0.3)'
+                    }}
                   >
                     {tag}
                   </span>
                 ))}
                 {item.tags.length > 3 && (
-                  <span className="inline-flex items-center bg-manjocarn-sage-green/20 text-manjocarn-forest-green text-xs px-3 py-1.5 rounded-full font-medium border border-manjocarn-sage-green/40">
+                  <span className="inline-flex items-center text-xs px-3 py-1.5 rounded-full font-bold border-2" style={{
+                    backgroundColor: 'rgba(107, 78, 61, 0.15)',
+                    color: '#6b4e3d',
+                    borderColor: 'rgba(107, 78, 61, 0.3)'
+                  }}>
                     +{item.tags.length - 3}
                   </span>
                 )}

@@ -38,6 +38,17 @@ export default {
           "light-sage": "#b5c4a7",
           "golden-yellow": "#f2d478",
           "sunset-orange": "#e89c5a",
+
+          // Nouvelle palette identité Manjocarn 2024
+          terracotta: "#c65d3b",
+          "warm-terracotta": "#d47350",
+          "river-blue": "#4a7c8c",
+          "deep-river": "#2f5a68",
+          "river-foam": "#7fb3c4",
+          "coral-accent": "#e55934",
+          "warm-sand": "#f5e6c8",
+          "deep-earth": "#6b4e3d",
+          "olive-green": "#7a8450",
         },
       },
       fontFamily: {
