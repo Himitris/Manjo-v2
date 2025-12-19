@@ -1,5 +1,6 @@
 // src/components/sections/ContactSection.jsx
 import { motion } from "framer-motion";
+import { memo } from "react";
 import {
   MapPin,
   Phone,
@@ -305,4 +306,4 @@ const ContactSection = () => {
   );
 };
 
-export default ContactSection;
+export default memo(ContactSection);

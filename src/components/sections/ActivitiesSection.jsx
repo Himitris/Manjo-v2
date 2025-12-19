@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Phone, MapPin, Target, Waves, Footprints, TreePine, PersonStanding, Map } from "lucide-react";
 import Section from "../ui/Section";
-import { useState } from "react";
+import { useState, memo } from "react";
 
 const activitiesData = [
   {
@@ -301,4 +301,4 @@ const ActivitiesSection = () => {
   );
 };
 
-export default ActivitiesSection;
+export default memo(ActivitiesSection);

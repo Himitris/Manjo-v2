@@ -1,6 +1,6 @@
 // src/components/sections/MenuSection.jsx
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, memo } from "react";
 import { ChefHat, Star, Utensils, Salad, Beef, IceCream } from "lucide-react";
 import Section from "../ui/Section";
 
@@ -221,19 +221,17 @@ const MenuSection = () => {
 
               {/* Tags responsive */}
               <div className="menu-item-tags flex flex-wrap gap-1 md:gap-2 mb-2">
-                {item.tags
-                  .slice(0, window.innerWidth < 640 ? 2 : 3)
-                  .map((tag, tagIndex) => (
-                    <span
-                      key={tagIndex}
-                      className="menu-item-tag bg-manjocarn-mint-green/30 text-manjocarn-forest-green text-xs px-2 md:px-3 py-1 rounded-full font-medium border border-manjocarn-sage-green/30"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                {item.tags.length > (window.innerWidth < 640 ? 2 : 3) && (
+                {item.tags.slice(0, 3).map((tag, tagIndex) => (
+                  <span
+                    key={tagIndex}
+                    className="menu-item-tag bg-manjocarn-mint-green/30 text-manjocarn-forest-green text-xs px-2 md:px-3 py-1 rounded-full font-medium border border-manjocarn-sage-green/30"
+                  >
+                    {tag}
+                  </span>
+                ))}
+                {item.tags.length > 3 && (
                   <span className="menu-item-tag bg-manjocarn-sage-green/20 text-manjocarn-forest-green text-xs px-2 md:px-3 py-1 rounded-full font-medium border border-manjocarn-sage-green/30">
-                    +{item.tags.length - (window.innerWidth < 640 ? 2 : 3)}
+                    +{item.tags.length - 3}
                   </span>
                 )}
               </div>
@@ -287,4 +285,4 @@ const MenuSection = () => {
   );
 };
 
-export default MenuSection;
+export default memo(MenuSection);

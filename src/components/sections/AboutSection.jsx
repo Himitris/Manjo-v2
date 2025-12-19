@@ -1,5 +1,6 @@
 // src/components/sections/AboutSection.jsx
 import { motion } from "framer-motion";
+import { memo } from "react";
 import Section from "../ui/Section";
 import { staggerContainer, fadeInUp } from "@/utils/animations";
 
@@ -249,4 +250,4 @@ const AboutSection = () => {
   );
 };
 
-export default AboutSection;
+export default memo(AboutSection);
